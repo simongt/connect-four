@@ -147,14 +147,17 @@ p {
 
 .space.preview {
   border: 5px dotted cyan;
-  /* opacity: 0.5; */
+  opacity: 0.1;
 }
 
-.space:hover {
-  /**
-   * as a player hovers over each board column, a slightly opaque disc token
-   * appears directly above that same column along the game board... the disc
-   * token's color will depend on who's turn it is
-   */
+/**
+  * hover pseudo class:
+  * as a player hovers over each board column, a slightly opaque disc token
+  * appears directly above that same column along the game board... the disc
+  * token's color will depend on who's turn it is
+  */
+.space.preview:hover {
+  border: 5px solid cyan;
+   opacity: 1;
 }
 
