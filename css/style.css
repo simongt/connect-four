@@ -35,21 +35,21 @@ h2 {
   margin-bottom : 0.75rem;
 }
 
-h3 {
+/* h3 {
 
-}
+} */
 
-h4 {
+/* h4 {
 
-}
+} */
 
-h5 {
+/* h5 {
 
-}
+} */
 
-h6 {
+/* h6 {
 
-}
+} */
 
 p {
   font: normal      /* style */
@@ -87,6 +87,11 @@ p {
   pointer-events: none;
 }
 
+/*
+ * 6x7 gameboard, 1x7 preview row (7-row, 7-column grid)
+ * Built for 720px width screen in mind, roughly about 900px height.
+ * (will make it responsive for 360px + 1080px + 2160px later)
+ */
 .fullBoard {
   background-color: transparent;
   display: grid;
@@ -111,28 +116,20 @@ p {
 }
 
 .board {
-  display: grid;
-  margin: auto;
-  /*
-   * Built for 720px screen in mind
-   * (will make it responsive for 360p + 1080p + 2160p later)
-   * 6x7 gameboard, 1x7 preview row (7-row, 7-column grid)
-   */
+  background-color: transparent;
+  display: grid;  /* grid display allows for custom horiz + vert cells */
+  margin: auto;   /* inherits minimal margins from body */
   /* 7 columns to insert game tokens */
   grid-template-columns: auto auto auto auto auto auto auto;
   /* 6 rows to hold game tokens */
   grid-template-rows: auto auto auto auto auto auto;
-  /* add border around the game board to the overall height + width: 20px  */
-  border: 5px solid white;
-  /* add gap between rows + columns to the height + width: 10px x 6 = 60px */
-  grid-gap: 5px;
-  padding: 5px;
-  /* width: 100px x 7-columns = 700px */
-  width: 700px;
-  /* height: 100px x 6-rows = 600px */
-  height: 600px;
-  /* background */
-  background-color: transparent;
+  border: 5px solid white; /* 5px x 2 sides = 10px total per axis */
+  border-radius: 10px; /* slightly rounded corners */
+  grid-gap: 5px;  /* 5px x 6 gaps = 60px total */
+  padding: 5px;   /* 5px x 2 sides = 10px total per axis */
+  width: 700px;   /* width: 100px x 7-columns = 700px */
+  height: 600px;  /* height: 100px x 6-rows = 600px */
+  opacity: .95;   /* slightly rounded corners */
 }
 
 .space {
@@ -146,7 +143,7 @@ p {
 }
 
 .space.preview {
-  border: 5px dotted cyan;
+  border: 5px dashed cyan;
   opacity: 0.1;
 }
 
@@ -158,6 +155,39 @@ p {
   */
 .space.preview:hover {
   border: 5px solid cyan;
-   opacity: 1;
+  opacity: .9;
+  /* .pulsate-bck, w: http://animista.net */
+  -webkit-animation: pulsate-bck 0.5s ease-in-out infinite both;
+  animation: pulsate-bck 0.5s ease-in-out infinite both;
+}
+
+/* animation pulsate-bck, w: http://animista.net */
+@-webkit-keyframes pulsate-bck {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes pulsate-bck {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
 
