@@ -9,10 +9,12 @@
 
 body, html {
   background: black;
-  width: 720px;
-  height: 100%;
+  min-width: 720px;
+  /* width: 100%; */
+  min-height: 885px;
+  /* height: 100%; */
   margin: 0 auto;
-  overflow : hidden;
+  overflow: hidden;
 }
 
 /* text format */
@@ -71,11 +73,10 @@ p {
 
 .icon {
   margin: 40%; /* center at origin */
-  color: white;
 }
 
 .icon.arrow {
-  
+  color: cyan;  
 }
 
 .message {
@@ -94,6 +95,7 @@ p {
   grid-gap: 5px; /* padding: 5px; */
   width: 720px;
   height: 740px;
+  margin: auto;
 }
 
 .previewRow {
@@ -112,13 +114,13 @@ p {
   display: grid;
   margin: auto;
   /*
-   * Built for 720p screen in mind
+   * Built for 720px screen in mind
    * (will make it responsive for 360p + 1080p + 2160p later)
    * 6x7 gameboard, 1x7 preview row (7-row, 7-column grid)
    */
-  /* 7 columns */
+  /* 7 columns to insert game tokens */
   grid-template-columns: auto auto auto auto auto auto auto;
-  /* 7 rows: 6 rows to hold game tokens, 1 row for hover preview */
+  /* 6 rows to hold game tokens */
   grid-template-rows: auto auto auto auto auto auto;
   /* add border around the game board to the overall height + width: 20px  */
   border: 5px solid white;
