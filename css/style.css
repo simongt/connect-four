@@ -5,32 +5,24 @@
  *  font-family: 'VT323', monospace;
  */
 
+/* font short-hand: style variant weight size/height family */
+
 body, html {
-  width: 100%;
-  height: 100%;
-  margin: auto;
   background: black;
-  /* if board size is too big, screen will hide the overflow */
-  overflow: hidden;
+  width: 720px;
+  height: 900px;
+  margin: 0 auto;
+  overflow : hidden;
 }
 
+/* text format */
 h1 {
-  /* font-family: 'Amatic SC', cursive; */
-  font-family: 'Monoton', 'Arial Black', cursive;
-  /* font-family: 'VT323', monospace; */
+  font-family: 'Monoton', cursive;
   font-weight: 900;
-  color: black;
   font-size: 84px;
+  color: black;
   text-align: center;
-  letter-spacing: 6px;
-  text-shadow: -1.5px 0 magenta,  /* left */
-               0 3px yellow,      /* bottom */
-               1.5px 0 magenta,   /* right */
-               0 -3px cyan;       /* top */
-}
-
-.reduceBottomMargin {
-    margin-bottom: -2.5rem;
+  margin: 1rem 0 -1rem 0; /* increase margin @ top, reduce @ bottom */
 }
 
 h2 {
@@ -38,31 +30,82 @@ h2 {
   font-size: 36px;
   text-align: center;
   letter-spacing: 1px;
-  margin-bottom: 0.75rem;
+  margin-bottom : 0.75rem;
+}
+
+h3 {
+
+}
+
+h4 {
+
+}
+
+h5 {
+
+}
+
+h6 {
+
 }
 
 p {
-  /*
-    font short-hand:
-    'font-style',
-    'font-variant',
-    'font-weight',
-    'font-size',
-    'line-height',
-    'font-family' 
-  */
-  font: normal small-caps 100 24px/normal 'Alegreya Sans SC', sans-serif;
+  font: normal      /* style */
+        small-caps  /* variant */
+        100         /* weight */
+        24px/normal /* size/height */
+        'Alegreya Sans SC', sans-serif;
   color: white;
   text-align: center;
   letter-spacing: 1px;
+}
+
+/* special text formats + effects */
+.neon {
+  letter-spacing: 3px;
+  text-shadow: -1px   0px  magenta,  /* left */
+                0px   3px  yellow,   /* bottom */
+                1px   0px  magenta,  /* right */
+                0px  -3px  cyan;     /* top */
+  }
+
+.icon {
+  margin: 40%; /* center at origin */
+  color: white;
+}
+
+.icon.arrow {
+  
+}
+
+.message {
+  margin: 0px auto 0px auto;
 }
 
 .avoidClicks {
   pointer-events: none;
 }
 
-.status {
+.fullBoard {
+  background-color: transparent;
+  display: grid;
+  /* grid-template-columns: auto; */
+  /* grid-template-rows: auto auto; */
+  grid-gap: 5px; /* padding: 5px; */
+  width: 720px;
+  height: 740px;
+}
 
+.previewRow {
+  background-color: transparent;
+  display: grid;
+  margin: auto;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  grid-template-rows: auto;
+  grid-gap: 5px;
+  padding: 5px; 
+  width: 700px;
+  height: 100px;
 }
 
 .board {
@@ -76,7 +119,7 @@ p {
   /* 7 columns */
   grid-template-columns: auto auto auto auto auto auto auto;
   /* 7 rows: 6 rows to hold game tokens, 1 row for hover preview */
-  grid-template-rows: auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto;
   /* add border around the game board to the overall height + width: 20px  */
   border: 5px solid white;
   /* add gap between rows + columns to the height + width: 10px x 6 = 60px */
@@ -85,13 +128,12 @@ p {
   /* width: 100px x 7-columns = 700px */
   width: 700px;
   /* height: 100px x 6-rows = 600px */
-  height: 700px;
+  height: 600px;
   /* background */
-  background-color: black;
+  background-color: transparent;
 }
 
 .space {
-  background-color: black;
   width: 70px;
   height: 70px;
   background-color: transparent;
@@ -102,7 +144,8 @@ p {
 }
 
 .space.preview {
-
+  border: 5px dotted cyan;
+  /* opacity: 0.5; */
 }
 
 .space:hover {
