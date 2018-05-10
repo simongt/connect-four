@@ -1,0 +1,110 @@
+/** 
+ * Available fonts via Google:
+ *  font-family: 'Amatic SC', cursive;
+ *  font-family: 'Monoton', cursive;
+ *  font-family: 'VT323', monospace;
+ */
+
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background: black;
+  /* if board size is too big, screen will hide the overflow */
+  overflow: hidden;
+}
+
+h1 {
+  /* font-family: 'Amatic SC', cursive; */
+  font-family: 'Monoton', 'Arial Black', cursive;
+  /* font-family: 'VT323', monospace; */
+  font-weight: 900;
+  color: black;
+  font-size: 84px;
+  text-align: center;
+  letter-spacing: 6px;
+  text-shadow: -1.5px 0 magenta,  /* left */
+               0 3px yellow,      /* bottom */
+               1.5px 0 magenta,   /* right */
+               0 -3px cyan;       /* top */
+}
+
+.reduceBottomMargin {
+    margin-bottom: -2.5rem;
+}
+
+h2 {
+  color: white;
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  /*
+    font short-hand:
+    'font-style',
+    'font-variant',
+    'font-weight',
+    'font-size',
+    'line-height',
+    'font-family' 
+  */
+  font: normal small-caps 100 24px/normal 'Alegreya Sans SC', sans-serif;
+  color: white;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.avoidClicks {
+  pointer-events: none;
+}
+
+.status {
+
+}
+
+.board {
+  display: grid;
+  margin: auto;
+  /*
+   * Built for 720p screen in mind
+   * (will make it responsive for 360p + 1080p + 2160p later)
+   * 6x7 gameboard, 1x7 preview row (7-row, 7-column grid)
+   */
+  /* 7 columns */
+  grid-template-columns: auto auto auto auto auto auto auto;
+  /* 7 rows: 6 rows to hold game tokens, 1 row for hover preview */
+  grid-template-rows: auto auto auto auto auto auto auto;
+  /* add border around the game board to the overall height + width: 20px  */
+  border: 10px solid white;
+  /* add gap between rows + columns to the height + width: 10px x 6 = 60px */
+  grid-gap: 10px;
+  /* width: 100px x 7-columns = 700px */
+  width: 700px;
+  /* height: 100px x 6-rows = 600px */
+  height: 700px;
+  /* background */
+  background-color: white;
+}
+
+.space {
+  background-color: black;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.space.preview {
+
+}
+
+.space:hover {
+  /**
+   * as a player hovers over each board column, a slightly opaque disc token
+   * appears directly above that same column along the game board... the disc
+   * token's color will depend on who's turn it is
+   */
+}
+
