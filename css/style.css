@@ -10,7 +10,7 @@
 body, html {
   background: black;
   width: 720px;
-  height: 900px;
+  height: 100%;
   margin: 0 auto;
   overflow : hidden;
 }
@@ -22,7 +22,7 @@ h1 {
   font-size: 84px;
   color: black;
   text-align: center;
-  margin: 1rem 0 -1rem 0; /* increase margin @ top, reduce @ bottom */
+  margin: 0 0 -1rem 0; /* minimize margins, esp @ bottom */ 
 }
 
 h2 {
