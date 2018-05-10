@@ -28,8 +28,14 @@ $(function () {
   // grab the html body
   const $body = $('body');
   // insert game name as header
-  const $nameOfTheGame = $('<h1>').html(`Connect 4`).appendTo($body);
+  const $nameOfTheGame = $('<h1>').addClass('reduceBottomMargin').html(`Connect 4`).appendTo($body);
   const $gameStatus1 = $('<p>').addClass('status').html(`Drop it like it's hot!`).appendTo($body);
   const $board = $('<div>').addClass('board').appendTo($body);
+  let boardSpaces = [];
+  let boardColumns = [];
+  let firstAvailableRow = []; // per row
 
+  for(let i = 0; i < 49; i++) {
+    const $space = $('<div>').addClass('space').appendTo($board);
+  }
 });

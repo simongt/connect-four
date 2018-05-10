@@ -78,22 +78,27 @@ p {
   /* 7 rows: 6 rows to hold game tokens, 1 row for hover preview */
   grid-template-rows: auto auto auto auto auto auto auto;
   /* add border around the game board to the overall height + width: 20px  */
-  border: 10px solid white;
+  border: 5px solid white;
   /* add gap between rows + columns to the height + width: 10px x 6 = 60px */
-  grid-gap: 10px;
+  grid-gap: 5px;
+  padding: 5px;
   /* width: 100px x 7-columns = 700px */
   width: 700px;
   /* height: 100px x 6-rows = 600px */
   height: 700px;
   /* background */
-  background-color: white;
+  background-color: black;
 }
 
 .space {
   background-color: black;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
+  background-color: transparent;
+  border-radius: 70px;
+  border: 5px solid white;
   cursor: pointer;
+  margin: auto;
 }
 
 .space.preview {
