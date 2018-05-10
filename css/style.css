@@ -142,9 +142,10 @@ p {
   margin: auto;
 }
 
+
 .space.preview {
   border: 5px dashed cyan;
-  opacity: 0.1;
+  opacity: 0.0;
 }
 
 /**
@@ -155,7 +156,13 @@ p {
   */
 .space.preview:hover {
   border: 5px solid cyan;
-  opacity: .9;
+  /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+  opacity: 1.0;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
   /* .pulsate-bck, w: http://animista.net */
   -webkit-animation: pulsate-bck 0.5s ease-in-out infinite both;
   animation: pulsate-bck 0.5s ease-in-out infinite both;
