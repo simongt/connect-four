@@ -130,6 +130,14 @@ p {
   width: 700px;   /* width: 100px x 7-columns = 700px */
   height: 600px;  /* height: 100px x 6-rows = 600px */
   opacity: .95;   /* slightly rounded corners */
+
+  font: normal      /* style */
+        small-caps  /* variant */
+        100         /* weight */
+        55px/normal /* size/height */
+        'Alegreya Sans SC', sans-serif;
+  color: rgba(255,255,255,0.2);
+  text-align: center; /* how do I vertically align w/o affecting div structure? */
 }
 
 .space {
@@ -197,4 +205,3 @@ p {
     transform: scale(1);
   }
 }
-

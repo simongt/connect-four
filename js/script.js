@@ -54,21 +54,35 @@ $(function () {
   $board.addClass('board');
   $board.appendTo($fullBoard);
 
+  // fill the board with spaces, fill one preview row above the board
   for(let i = 0; i < 7; i++) {
     // fill the preview row with non-playable spaces
-    const $space = $('<div>');
-    $space.addClass('space preview');
-    $space.appendTo($previewRow);
-    // fill the preview row with non-playable spaces
+    const $previewSpace = $('<div>');
+    $previewSpace.addClass('space preview');
+    $previewSpace.appendTo($previewRow);
+    // insert a down arrow into each preview space
     const $downArrow = $('<i>');
     $downArrow.addClass('fas fa-arrow-down');
     $downArrow.addClass('icon arrow');
-    $downArrow.appendTo($space);
+    $downArrow.appendTo($previewSpace);
   }
   for (let i = 0; i < 42; i++) {
-    // fill the preview row with non-playable spaces
+    // fill each column with playable spaces
     const $space = $('<div>');
     $space.addClass('space');
+    $space.html(i);
     $space.appendTo($board);
   }
+
+  /** 
+   * column 1: [ 0,  7, 14, 21, 28, 35 ]
+   * column 2: [ 1,  8, 15, 22, 29, 36 ]
+   * column 3: [ 2,  9, 16, 23, 30, 37 ]
+   * column 4: [ 3, 10, 17, 24, 31, 38 ]
+   * column 5: [ 4, 11, 18, 25, 32, 39 ]
+   * column 6: [ 5, 12, 19, 26, 33, 40 ]
+   * column 7: [ 6, 13, 20, 27, 34, 41 ]
+   */
+  
+
 });
