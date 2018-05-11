@@ -158,10 +158,14 @@ $(function () {
     col = i % 7;
     board[row][col] = $space[0];
     // How would I affect one div by hovering over another div?
-    let hover = $space.hover(function() {
-      previewRow[col].addClass('hoverPreview');
-    }, function() {
-      previewRow[col].removeClass('hoverPreview');
+    let hoverBoard = $space.hover(function () {
+      $(previewRow[col]).addClass('pulsate');
+      $space.html('x'); // testing purposes
+      $space.css('background-color', 'magenta');
+    }, function () {
+      $(previewRow[col]).removeClass('pulsate');
+      $space.html(i);// testing purposes
+      $space.css('background-color', 'transparent');
     });
   }
   console.table(board);
