@@ -99,8 +99,36 @@ p {
   /* grid-template-rows: auto auto; */
   grid-gap: 5px; /* padding: 5px; */
   width: 720px;
-  height: 740px;
+  height: 720px;
   margin: auto;
+}
+
+.column1 {
+  grid-area: column1;
+}
+
+.column2 {
+  grid-area: column2;
+}
+
+.column3 {
+  grid-area: column3;
+}
+
+.column4 {
+  grid-area: column4;
+}
+
+.column5 {
+  grid-area: column5;
+}
+
+.column6 {
+  grid-area: column6;
+}
+
+.column7 {
+  grid-area: column7;
 }
 
 .previewRow {
@@ -120,9 +148,17 @@ p {
   display: grid;  /* grid display allows for custom horiz + vert cells */
   margin: auto;   /* inherits minimal margins from body */
   /* 7 columns to insert game tokens */
-  grid-template-columns: auto auto auto auto auto auto auto;
+  /* grid-template-columns: auto auto auto auto auto auto auto; */
+  grid-template-columns: repeat(7, 1fr);
   /* 6 rows to hold game tokens */
-  grid-template-rows: auto auto auto auto auto auto;
+  /* grid-template-rows: minmax(100px, auto); */
+  grid-template-areas:
+    "column1 column2 column3 column4 column5 column6 column7"
+    "column1 column2 column3 column4 column5 column6 column7"
+    "column1 column2 column3 column4 column5 column6 column7"
+    "column1 column2 column3 column4 column5 column6 column7"
+    "column1 column2 column3 column4 column5 column6 column7"
+    "column1 column2 column3 column4 column5 column6 column7";
   border: 5px solid white; /* 5px x 2 sides = 10px total per axis */
   border-radius: 10px; /* slightly rounded corners */
   grid-gap: 5px;  /* 5px x 6 gaps = 60px total */
@@ -136,7 +172,7 @@ p {
         100         /* weight */
         55px/normal /* size/height */
         'Alegreya Sans SC', sans-serif;
-  color: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.25);
   text-align: center; /* how do I vertically align w/o affecting div structure? */
 }
 
@@ -150,10 +186,9 @@ p {
   margin: auto;
 }
 
-
 .space.preview {
   border: 5px dashed cyan;
-  opacity: 0.0;
+  opacity: 0;
 }
 
 /**
@@ -167,10 +202,10 @@ p {
   opacity: 1.0;
   /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
   -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  -moz-transition:    all 0.2s ease-in-out;
+  -ms-transition:     all 0.2s ease-in-out;
+  -o-transition:      all 0.2s ease-in-out;
+  transition:         all 0.2s ease-in-out;
   /* .pulsate-bck, w: http://animista.net */
   -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
   animation: pulsate-bck 1.0s ease-in-out infinite both;
