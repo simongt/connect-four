@@ -111,7 +111,7 @@ $(function () {
   /** each column will be its own JSON object or array */
   const column1 = {
     // row: [],
-  }
+  };
 
   /*
    * handy "multi-dimensional" array creating function that takes in arguments
@@ -154,19 +154,25 @@ $(function () {
     $space.appendTo($container);
 
     // store each space on the viewable game board into the 2d array
-    row = Math.floor(i / 7);
-    col = i % 7;
-    board[row][col] = $space[0];
-    // How would I affect one div by hovering over another div?
-    let hoverBoard = $space.hover(function () {
-      $(previewRow[col]).addClass('pulsate');
-      $space.html('x'); // testing purposes
-      $space.css('background-color', 'magenta');
-    }, function () {
-      $(previewRow[col]).removeClass('pulsate');
-      $space.html(i);// testing purposes
-      $space.css('background-color', 'transparent');
-    });
+    let row = Math.floor(i / 7);
+    let col = i % 7;
+    board[row][col] = $space;
   }
+  board.forEach(row => {
+    row.forEach($space => {
+      let col = parseInt($space[0].innerHTML) % 7;
+      console.log(`col ${col}: space ${$space}`);
+      console.log(col);
+      console.log();
+      // How would I affect one div by hovering over another div?
+      let hoverBoard = $space.hover(function () {
+        console.log(col); // outputs 6 no matter what
+        // I need the column position of wherever I'm hovering
+        previewRow[col].addClass('pulsate');
+      }, function () {
+        previewRow[col].removeClass('pulsate');
+      });
+    });
+  });
   console.table(board);
 });
