@@ -15,21 +15,18 @@ $(function () {
   const player = {
     one: {
       spaces: [],
-      combos: [],
+      connections: [],
       wins: score.player1
     },
     two: {
       spaces: [],
-      combos: [],
+      connections: [],
       wins: score.player2
     }
   };
 
   // grab the html body
   const $body = $('body');
-  // const $header = $('header').appendTo($body);
-  // const $main = $('main').appendTo($body);
-  // const $footer = $('footer').appendTo($body);
 
   // insert game title
   const $gameTitle = $('<h1>');
@@ -44,16 +41,17 @@ $(function () {
   $message.appendTo($body);
 
   // insert the full board (includes the preview row + visible playable board)
-  const $fullBoard = $('<div>');
-  $fullBoard.addClass('fullBoard');
-  $fullBoard.appendTo($body);
-  const $previewRow = $('<div>');
-  $previewRow.addClass('previewRow');
-  $previewRow.appendTo($fullBoard);
-  const $board = $('<div>');
-  $board.addClass('board');
-  $board.appendTo($fullBoard);
+  const $container = $('<div>');
+  $container.addClass('gameContainer');
+  $container.appendTo($body);
+  // const $previewRow = $('<div>');
+  // $previewRow.addClass('preview');
+  // $previewRow.appendTo($container);
+  // const $board = $('<div>');
+  // $board.addClass('board');
+  // $board.appendTo($container);
 
+  let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
   let board = createArray(6, 7);  /*
                                    * 2-D array setup: 6 rows, 7 columns
@@ -75,7 +73,46 @@ $(function () {
                                    *  [ 1 ] [ 28 ... 34 ]
                                    *  [ 0 ] [ 35 ... 41 ]
                                    */
-  console.log(board);
+
+  /**
+   * in total, there will be 69 possible winning connections of four
+   * - 21 vertical connections of four (3 solutions x 7 columns)
+   * - 24 horizontal connections of four (4 solutions x 6 rows)
+   * - 24 diagonal connections of four (12 solutions x 2 directions)
+   */
+  const winningConnections = [
+    // vertical solutions
+    [0, 7, 14, 21], [7, 14, 21, 28], [14, 21, 28, 35],
+    [1, 8, 15, 22], [8, 15, 22, 29], [15, 22, 29, 36],
+    [2, 9, 16, 23], [9, 16, 23, 30], [16, 23, 30, 37],
+    [3, 10, 17, 24], [10, 17, 24, 31], [17, 24, 31, 38],
+    [4, 11, 18, 25], [11, 18, 25, 32], [18, 25, 32, 39],
+    [5, 12, 19, 26], [12, 19, 26, 33], [19, 26, 33, 40],
+    [6, 13, 20, 27], [13, 20, 27, 34], [20, 27, 34, 41],
+    // horizontal solutions
+    [0, 1, 2, 3], [1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6],
+    [7, 8, 9, 10], [8, 9, 10, 11], [9, 10, 11, 12], [10, 11, 12, 13],
+    [14, 15, 16, 17], [15, 16, 17, 18], [16, 17, 18, 19], [17, 18, 19, 20],
+    [21, 22, 23, 24], [22, 23, 24, 25], [23, 24, 25, 26], [24, 25, 26, 27],
+    [28, 29, 30, 31], [29, 30, 31, 32], [30, 31, 32, 33], [31, 32, 33, 34],
+    [35, 36, 37, 38], [36, 37, 38, 39], [37, 38, 39, 40], [38, 39, 40, 41],
+    // diagonal solutions
+    [0, 8, 16, 24], [7, 15, 23, 31], [14, 22, 30, 38],
+    [1, 9, 17, 25], [8, 16, 24, 32], [15, 23, 31, 39],
+    [2, 10, 18, 26], [9, 17, 25, 33], [16, 24, 32, 40],
+    [3, 11, 19, 27], [10, 18, 26, 34], [17, 25, 33, 41],
+    [3, 9, 15, 21], [4, 10, 16, 22], [5, 11, 17, 23], [6, 12, 18, 24],
+    [10, 16, 22, 28], [11, 17, 23, 29], [12, 18, 24, 30], [13, 19, 25, 31],
+    [17, 23, 29, 35], [18, 24, 30, 36], [19, 25, 31, 37], [20, 26, 32, 38]
+  ];
+  winningConnections.sort();
+  console.log(winningConnections);
+
+  /** each column will be its own JSON object or array */
+  const column1 = {
+    // row: [],
+  }
+
   /*
    * handy "multi-dimensional" array creating function that takes in arguments
    * courtesy of Matthew Crumley on Stack OverFlow:
@@ -97,13 +134,15 @@ $(function () {
     // fill the preview row with non-playable spaces
     const $previewSpace = $('<div>');
     $previewSpace.addClass('space preview');
-    $previewSpace.appendTo($previewRow);
+    $previewSpace.appendTo($container);
+    previewRow[i] = $previewSpace;
     // insert a down arrow into each preview space
     const $downArrow = $('<i>');
     $downArrow.addClass('fas fa-arrow-down');
     $downArrow.addClass('icon arrow');
     $downArrow.appendTo($previewSpace);
   }
+  console.table(previewRow);
 
   // store the board's elements into the multi-dimensional array
   // board[row][col]
@@ -112,7 +151,18 @@ $(function () {
     const $space = $('<div>');
     $space.addClass('space');
     $space.html(i);
-    $space.appendTo($board);
+    $space.appendTo($container);
+
+    // store each space on the viewable game board into the 2d array
+    row = Math.floor(i / 7);
+    col = i % 7;
+    board[row][col] = $space[0];
+    // How would I affect one div by hovering over another div?
+    let hover = $space.hover(function() {
+      previewRow[col].addClass('hoverPreview');
+    }, function() {
+      previewRow[col].removeClass('hoverPreview');
+    });
   }
-  
+  console.table(board);
 });
