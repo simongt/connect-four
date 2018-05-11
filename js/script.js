@@ -3,8 +3,8 @@ $(function () {
   let countTurns = 0;
   // keep a score
   const score = {
-    player1: 0, // player 1
-    player2: 0, // player 2
+    player1: 0, // player 1 is magenta
+    player2: 0, // player 2 is yellow
     ties: 0
   };
   /*
@@ -16,14 +16,21 @@ $(function () {
     one: {
       spaces: [],
       connections: [],
+      color: '',
       wins: score.player1
     },
     two: {
       spaces: [],
       connections: [],
+      color: '',
       wins: score.player2
     }
   };
+
+  // for now, let player 1 be magenta and player 2 yellow
+  // (later, let player's choose their color)
+  player.one.color = 'magenta';
+  player.two.color = 'yellow';
 
   // grab the html body
   const $body = $('body');
@@ -144,8 +151,7 @@ $(function () {
   }
   console.table(previewRow);
 
-  // store the board's elements into the multi-dimensional array
-  // board[row][col]
+  // store board's elements into the multi-dimensional array: board[row][col]
   for (let i = 0; i < 42; i++) {
     // fill each column with playable spaces
     const $space = $('<div>');
@@ -160,17 +166,14 @@ $(function () {
   }
   board.forEach(row => {
     row.forEach($space => {
+      // by hovering over one space, make a "preview" appear over that column
+      let hoverAction = countTurns % 2 ? 'pulsateYellow' : 'pulsateMagenta';
       let col = parseInt($space[0].innerHTML) % 7;
-      console.log(`col ${col}: space ${$space}`);
-      console.log(col);
-      console.log();
-      // How would I affect one div by hovering over another div?
       let hoverBoard = $space.hover(function () {
-        console.log(col); // outputs 6 no matter what
-        // I need the column position of wherever I'm hovering
-        previewRow[col].addClass('pulsate');
+        console.log(`Hovering column ${col}.`);
+        previewRow[col].addClass(hoverAction);
       }, function () {
-        previewRow[col].removeClass('pulsate');
+        previewRow[col].removeClass(hoverAction);
       });
     });
   });

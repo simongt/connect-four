@@ -227,22 +227,33 @@ p {
   animation: pulsate-bck 1.0s ease-in-out infinite both;
 }
 
-.hoverPreview {
-  border: 5px solid cyan;
-  font-size: 18px;
-  text-align: center; /* how do I vertically align w/o affecting div structure? */ 
+.space.preview.pulsateYellow {
+  border: 5px solid yellow;
   opacity: 1.0;
   /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
   -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  -moz-transition:    all 0.2s ease-in-out;
+  -ms-transition:     all 0.2s ease-in-out;
+  -o-transition:      all 0.2s ease-in-out;
+  transition:         all 0.2s ease-in-out;
   /* .pulsate-bck, w: http://animista.net */
   -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
   animation: pulsate-bck 1.0s ease-in-out infinite both;
 }
 
+.space.preview.pulsateMagenta {
+  border: 5px solid magenta;
+  opacity: 1.0;
+  /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition:    all 0.2s ease-in-out;
+  -ms-transition:     all 0.2s ease-in-out;
+  -o-transition:      all 0.2s ease-in-out;
+  transition:         all 0.2s ease-in-out;
+  /* .pulsate-bck, w: http://animista.net */
+  -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+  animation: pulsate-bck 1.0s ease-in-out infinite both;
+}
 
 
 
