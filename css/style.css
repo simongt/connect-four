@@ -161,7 +161,7 @@ p {
   background-color: transparent;
   border-radius: 70px;
   border: 5px solid white;
-  color: black;
+  color: transparent;
   cursor: pointer;
   margin: auto;
 }

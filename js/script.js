@@ -13,8 +13,8 @@ $(function () {
    * - each player will have their wins tracked from round to round
    */ 
   const player = {
-    // for now, let player 1 be magenta and player 2 yellow
-    // (later, let player's choose their color)
+    // for now, let Player 1 be magenta and Player 2 yellow
+    // (later, let player's choose their color and name)
     one: {
       name: 'Player 1',
       spaces: [],
@@ -180,8 +180,7 @@ $(function () {
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
         boardPosition = parseInt($space[0].innerHTML);
         let col = boardPosition % 7;
-        console.log(`Hover column ${col + 1}.`);
-
+        console.log(`Hover column ${col}.`);
         previewRow[col].addClass(eventOnHover);
       }, function () {
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
@@ -211,7 +210,7 @@ $(function () {
         // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
         whosTurn.spaces.push(insertPosition);
         // whosTurn.spaces.sort(); // INCORRECT, sorts alphabetically, not numerically
-        // add a sorting rule
+        // add a numerical sorting rule
         // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
         whosTurn.spaces.sort((position1, position2) => position1 - position2);
         let roundIsWon = false;
@@ -224,6 +223,7 @@ $(function () {
             whosTurn.wins++; // for scoreboard
             $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
             $message.addClass('blink');
+            animateWinningConnection();
           }
         }
         console.table(player);
@@ -292,6 +292,10 @@ $(function () {
     console.log(`Animate winning connection.`);
     console.table(board[0]);
     console.table(winningConnection);
+    console.log($container[0]);
+    winningConnection.forEach(winningPosition => {
+      // animate
+    });
   }
 
   // Akseli Palén's solution for calculating combinations of elements in Array
