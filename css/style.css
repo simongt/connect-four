@@ -9,13 +9,14 @@
 
 body, html {
   background: black;
-  min-width: 720px;
+  min-width: 760px;
   /* width: 100%; */
   min-height: 885px;
   /* height: 100%; */
   margin: 0 auto;
   overflow: hidden;
   /* disable text highlighting */
+  /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -115,38 +116,12 @@ p {
  * (will make it responsive for 360px + 1080px + 2160px later)
  */
 
-.column1 {
-  grid-area: column1;
-}
 
-.column2 {
-  grid-area: column2;
-}
-
-.column3 {
-  grid-area: column3;
-}
-
-.column4 {
-  grid-area: column4;
-}
-
-.column5 {
-  grid-area: column5;
-}
-
-.column6 {
-  grid-area: column6;
-}
-
-.column7 {
-  grid-area: column7;
-}
 
 .gameContainer {
   background-color: transparent;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  /* grid-template-columns: repeat(7, 1fr); */
   /* grid-template-rows: minmax(); */
   grid-template-areas:
     "column1 column2 column3 column4 column5 column6 column7"
@@ -154,10 +129,8 @@ p {
     "column1 column2 column3 column4 column5 column6 column7"
     "column1 column2 column3 column4 column5 column6 column7"
     "column1 column2 column3 column4 column5 column6 column7"
-    "column1 column2 column3 column4 column5 column6 column7"
     "column1 column2 column3 column4 column5 column6 column7";
   grid-gap: 5px;
-  /* padding: 5px; */
   width: 720px;
   height: 720px;
   margin: auto;
@@ -168,45 +141,11 @@ p {
         'Alegreya Sans SC', sans-serif;
   color: rgba(255,255,255,0.25);
   text-align: center; /* how do I vertically align w/o affecting div structure? */
-}
-
-/* .previewRow {
-  background-color: transparent;
-  /* display: grid;
-  margin: auto;
-  grid-template-columns: auto auto auto auto auto auto auto;
-  grid-template-rows: auto;
-  grid-gap: 5px;
-  padding: 5px; 
-  width: 700px;
-  height: 100px; */
-} */
-
-.board {
-  /* background-color: transparent;
-  display: grid;  /* grid display allows for custom horiz + vert cells */
-  margin: auto;   /* inherits minimal margins from body */
-  /* 7 columns to insert game tokens */
-  /* grid-template-columns: auto auto auto auto auto auto auto; */
-  grid-template-columns: repeat(7, 1fr);
-  /* 6 rows to hold game tokens */
-  /* grid-template-rows: minmax(100px, auto); */
-
-  border: 5px solid white; /* 5px x 2 sides = 10px total per axis */
-  border-radius: 10px; /* slightly rounded corners */
-  grid-gap: 5px;  /* 5px x 6 gaps = 60px total */
-  padding: 5px;   /* 5px x 2 sides = 10px total per axis */
-  width: 700px;   /* width: 100px x 7-columns = 700px */
-  height: 600px;  /* height: 100px x 6-rows = 600px */
-  opacity: .95;   /* slightly rounded corners */
-
-  font: normal      /* style */
-        small-caps  /* variant */
-        100         /* weight */
-        55px/normal /* size/height */
-        'Alegreya Sans SC', sans-serif;
-  color: rgba(255,255,255,0.25);
-  text-align: center; /* how do I vertically align w/o affecting div structure? */
+  border-style: dashed;
+  border-image: linear-gradient(to top, white 0%, white 85%, black 85%, black 100%);
+  border-image-slice: 1;
+  border-width: 6px;
+  padding: 10px;
 }
 
 .space {
