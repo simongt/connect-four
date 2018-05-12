@@ -43,7 +43,7 @@ $(function () {
   // insert message below game title
   const $message = $('<p>');
   $message.addClass('message');
-  $message.html(`Drop it like it's hot!`);
+  $message.html(`${player.one.name}, drop it like it's hot!`);
   $message.appendTo($body);
 
   // insert the full board (includes the preview row + visible playable board)
@@ -170,25 +170,27 @@ $(function () {
   board.forEach(row => {
     row.forEach($space => {
       // by hovering over one space, make a "preview" appear over that column
-      // let hoverBoard = $space.hover(function () {
-      //   let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-      //   let col = parseInt($space[0].innerHTML) % 7;
-      //   console.log(`Hover column ${col+1}.`);
-      //   previewRow[col].addClass(eventOnHover);
-      // }, function () {
-      //   let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-      //   let col = parseInt($space[0].innerHTML) % 7;
-      //   previewRow[col].removeClass(eventOnHover);
-      // });
+      let hoverBoard = $space.hover(function () {
+        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+        let col = parseInt($space[0].innerHTML) % 7;
+        console.log(`Hover column ${col + 1}.`);
+        previewRow[col].addClass(eventOnHover);
+      }, function () {
+        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+        let col = parseInt($space[0].innerHTML) % 7;
+        previewRow[col].removeClass(eventOnHover);
+      });
       // by clicking on any column, drop a token into the last available space
       let clickBoard = $space.click(function () {
         let col = parseInt($space[0].innerHTML) % 7;
+        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+        previewRow[col].removeClass(eventOnHover);
         let openRow = firstOpenRow[col];
         let eventOnClick = turnCount % 2 ? 'fillYellow' : 'fillMagenta';
-        let whosTurn = turnCount % 2 ? player.two : player.one;
+        let whosTurn = turnCount % 2 ? player.one : player.two;
         console.log(`Click column ${col+1}.`);
         // find first available space in that column
-        console.log(`Available space at row ${firstOpenRow[col]+1}.`);
+        console.log(`Available space at row ${firstOpenRow[col] + 1}.`);
         // drop the player's piece into that column
         // * create css class for each player piece
         // * for now, just change space color, animate later
@@ -198,13 +200,15 @@ $(function () {
         // update (increment) turn
         turnCount++;
         $message.html(`${whosTurn.name}, it's your turn.`);
-        // make that space unclickable (unplayable)
+        // when a column fills up, make that column unclickable (unplayable)
         if (firstOpenRow[col] < 0) {
           clickBoard.off();
         }
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
         console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
+        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+        previewRow[col].addClass(eventOnHover);
       });
     });
   });
