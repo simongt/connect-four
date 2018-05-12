@@ -116,7 +116,8 @@ $(function () {
   winningConnectionsOf4.sort();
   console.log(winningConnectionsOf4);
 
-  /** each column will be its own JSON object or array */
+  // a player's winning connection, can be greater than 4
+  let winningConnection = [];
 
   // position of first available space per column
   let firstOpenRow = [5, 5, 5, 5, 5, 5, 5];
@@ -210,15 +211,15 @@ $(function () {
         // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
         whosTurn.spaces.push(insertPosition);
         whosTurn.spaces.sort();
-        let roundWon = false;
+        let roundIsWon = false;
         if (whosTurn.spaces.length >= 4) {
           whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
           // console.table(whosTurn.combosOf4);
-          roundWon = checkForWinningConnection(whosTurn.combosOf4);
-          if (roundWon) {
+          roundIsWon = checkForWinningConnection(whosTurn.combosOf4);
+          if (roundIsWon) {
             $container.addClass('avoidClicks');
             whosTurn.wins++; // for scoreboard
-            $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves!`);
+            $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
             $message.addClass('blink');
           }
         }
@@ -229,8 +230,10 @@ $(function () {
         // update (increment) turn
         turnCount++;
         whosTurn = turnCount % 2 ? player.two : player.one;
-        if(!roundWon) {
+        if(!roundIsWon && turnCount < 42) {
           $message.html(`${whosTurn.name}, drop it like it's hot!`);
+        } else if (!roundIsWon) {
+          $message.html(`Woah, we have a draw!`);
         }
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
@@ -256,7 +259,6 @@ $(function () {
     // console.table(board);
   }
 
-  let winningConnection = [];
   function checkForWinningConnection(combosOf4) {
     let isWin = false;
     for (const comboOf4 of combosOf4) { // player combos
@@ -282,11 +284,10 @@ $(function () {
     return isWin;
   }
 
-  function animateWinningConnection(combo) {
-    console.log(`Winner: ${whosTurn.name}`);
+  function animateWinningConnection() {
     console.log(`Animate winning connection.`);
     console.table(board[0]);
-    console.table(combo);
+    console.table(winningConnection);
   }
 
   // Akseli Palén's solution for calculating combinations of elements in Array
