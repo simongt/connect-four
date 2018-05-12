@@ -289,16 +289,19 @@ p {
   margin: 0.2em auto 0 auto;
 }
 .score.player1 {
+  color: magenta;
   font-size: 70px;
   margin: -.4em auto 0 auto;
 }
 
 .score.player2 {
+  color: yellow;
   font-size: 70px;
   margin: -.4em auto 0 auto;
 }
 
 .score.ties {
+  color: cyan;
   font-size: 36px;
   margin: 0.1em auto 0 auto;
 }

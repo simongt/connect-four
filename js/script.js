@@ -293,10 +293,10 @@ $(function () {
           if (!roundIsWon && turnCount < 42) {
             $message.html(`${whosTurn.name}, drop it like it's hot!`);
           } else if (!roundIsWon) {
-            $message.html(`Woah, we have a draw!`);
             $message.addClass('blink');
+            $message.html(`Woah, we have a draw!`);
+            ties++;
             clearGameBoard(5000);
-
           }
           console.table(board[openRow][col]);
           console.log(`Turn: ${turnCount}`);
