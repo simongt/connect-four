@@ -119,6 +119,14 @@ p {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+.containerLid {
+  width: 735px;
+  margin: 90px auto 0 auto;
+  display: block;
+  border-style: solid;
+  border-color: white;
+  opacity: 1;
+}
 
 /*
  * 6x7 gameboard, 1x7 preview row (in total, 7-row, 7-column grid)
@@ -140,7 +148,8 @@ p {
   grid-gap: 5px;
   width: 720px;
   height: 720px;
-  margin: auto;
+  margin: -115px auto auto auto;
+  padding: 10px 10px 10px 10px;
   font: normal      /* style */
         small-caps  /* variant */
         100         /* weight */
@@ -149,15 +158,9 @@ p {
   color: rgba(255,255,255,0.25);
   text-align: center; /* how do I vertically align w/o affecting div structure? */
   border-style: dashed;
-  border-image: linear-gradient(to top, white 0%, white 85%, black 85%, black 100%);
+  border-image: linear-gradient(to top, white 0%, white 86%, transparent 86%, transparent 100%);
   border-image-slice: 1;
   border-width: 6px;
-  padding: 10px;
-}
-.gameContainer.flipOver {
-  /* flip board over so the pieces can be emptied */
- 	-webkit-animation: flip-horizontal-bottom 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip-horizontal-bottom 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 .space {
@@ -728,26 +731,5 @@ p {
     -webkit-transform: translateY(-1000px);
     transform: translateY(-1000px);
     opacity: 0;
-  }
-}
-/* animation flip-horizontal-bottom */
-@-webkit-keyframes flip-horizontal-bottom {
-  0% {
-    -webkit-transform: rotateX(0);
-    transform: rotateX(0);
-  }
-  100% {
-    -webkit-transform: rotateX(-180deg);
-    transform: rotateX(-180deg);
-  }
-}
-@keyframes flip-horizontal-bottom {
-  0% {
-    -webkit-transform: rotateX(0);
-    transform: rotateX(0);
-  }
-  100% {
-    -webkit-transform: rotateX(-180deg);
-    transform: rotateX(-180deg);
   }
 }

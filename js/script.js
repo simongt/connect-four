@@ -65,6 +65,11 @@ $(function () {
   $message.html(`${player.one.name}, drop it like it's hot!`);
   $message.appendTo($body);
 
+  // insert make-shift hacky border to top of container
+  let $containerLid = $('<div>');
+  $containerLid.addClass('containerLid');
+  $containerLid.appendTo($body);
+
   // insert the full board (includes the preview row + visible playable board)
   let $container = $('<div>');
   $container.addClass('gameContainer');
