@@ -116,7 +116,7 @@ $(function () {
   winningConnectionsOf4.sort();
   console.log(winningConnectionsOf4);
 
-  // a player's winning connection, can be greater than 4
+  // a player's winning connection, can be greater than 4 in a row
   let winningConnection = [];
 
   // position of first available space per column
@@ -210,7 +210,10 @@ $(function () {
         console.log(`Insert at row ${openRow}, col ${col}, board position ${(openRow * 7) + col}.`);
         // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
         whosTurn.spaces.push(insertPosition);
-        whosTurn.spaces.sort();
+        // whosTurn.spaces.sort(); // INCORRECT, sorts alphabetically, not numerically
+        // add a sorting rule
+        // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
+        whosTurn.spaces.sort((position1, position2) => position1 - position2);
         let roundIsWon = false;
         if (whosTurn.spaces.length >= 4) {
           whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
