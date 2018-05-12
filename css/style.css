@@ -257,7 +257,7 @@ p {
   background: transparent;
   border-style: solid;
   border-color: white;
-  border-width: 0 6px 6px 6px;
+  border-width: 0 4px 4px 4px;
   border-radius: 0px;
 
 }
@@ -277,10 +277,33 @@ p {
   border-radius: 0px;
 }
 .score {
-  /* font-size: 25px; */
-  /* color: white; */
+  font: normal      /* style */
+        small-caps  /* variant */
+        100         /* weight */
+        20px/normal /* size/height */
+        'Alegreya Sans SC', sans-serif;
+  color: white;
   text-align: center;
+  letter-spacing: 1px;
+  width: 100%;
+  margin: 0.2em auto 0 auto;
 }
+.score.player1 {
+  font-size: 70px;
+  margin: -.4em auto 0 auto;
+}
+
+.score.player2 {
+  font-size: 70px;
+  margin: -.4em auto 0 auto;
+}
+
+.score.ties {
+  font-size: 36px;
+  margin: 0.1em auto 0 auto;
+}
+
+
 
 /* ANIMISTA WEBKIT */
 

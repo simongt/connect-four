@@ -40,6 +40,8 @@ $(function () {
   // track the number of turns that have taken place
   let turnCount = 0;
   let whosTurn = turnCount % 2 ? player.two : player.one;
+
+  let ties = 0;
   // keep a score
   // const score = {
   //   player1: 0, // player 1 is magenta
@@ -77,9 +79,32 @@ $(function () {
   $scoreBoard.addClass('scoreBoard');
   $scoreBoard.appendTo($body);
 
-  for(let i = 0; i < 3; i++) {
-    // init score board
-  }
+  let $player1ScoreLabel = $('<div>');
+  let $tiesScoreLabel = $('<div>');
+  let $player2ScoreLabel = $('<div>');
+  let $player1Score = $('<div>');
+  let $tiesScore = $('<div>');
+  let $player2Score = $('<div>');
+
+  $player1ScoreLabel.addClass('score');
+  $tiesScoreLabel.addClass('score');
+  $player2ScoreLabel.addClass('score');
+  $player1Score.addClass('score player1');
+  $tiesScore.addClass('score ties');
+  $player2Score.addClass('score player2');
+
+  $player1ScoreLabel.html(player.one.name);
+  $player2ScoreLabel.html(player.two.name);
+  $player1Score.html(player.one.wins);
+  $tiesScore.html(`ties: ${ties}`);
+  $player2Score.html(player.two.wins);
+
+  $player1ScoreLabel.appendTo($scoreBoard);
+  $tiesScoreLabel.appendTo($scoreBoard);
+  $player2ScoreLabel.appendTo($scoreBoard);
+  $player1Score.appendTo($scoreBoard);
+  $tiesScore.appendTo($scoreBoard);
+  $player2Score.appendTo($scoreBoard);
 
   let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
@@ -326,10 +351,38 @@ $(function () {
     $scoreBoardTitle.addClass('scoreBoardTitle');
     $scoreBoardTitle.html('ScoreBoard');
     $scoreBoardTitle.appendTo($body);
+
     $scoreBoard.remove();
     $scoreBoard = $('<div>');
     $scoreBoard.addClass('scoreBoard');
     $scoreBoard.appendTo($body);
+
+    $player1ScoreLabel = $('<div>');
+    $tiesScoreLabel = $('<div>');
+    $player2ScoreLabel = $('<div>');
+    $player1Score = $('<div>');
+    $tiesScore = $('<div>');
+    $player2Score = $('<div>');
+
+    $player1ScoreLabel.addClass('score');
+    $tiesScoreLabel.addClass('score');
+    $player2ScoreLabel.addClass('score');
+    $player1Score.addClass('score player1');
+    $tiesScore.addClass('score ties');
+    $player2Score.addClass('score player2');
+
+    $player1ScoreLabel.html(player.one.name);
+    $player2ScoreLabel.html(player.two.name);
+    $player1Score.html(player.one.wins);
+    $tiesScore.html(`ties: ${ties}`);
+    $player2Score.html(player.two.wins);
+
+    $player1ScoreLabel.appendTo($scoreBoard);
+    $tiesScoreLabel.appendTo($scoreBoard);
+    $player2ScoreLabel.appendTo($scoreBoard);
+    $player1Score.appendTo($scoreBoard);
+    $tiesScore.appendTo($scoreBoard);
+    $player2Score.appendTo($scoreBoard);
   }
 
   function resetRoundData() {
