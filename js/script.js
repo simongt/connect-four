@@ -32,6 +32,7 @@ $(function () {
       wins: score.player2
     }
   };
+  let whosTurn = turnCount % 2 ? player.two : player.one;
 
   // grab the html body
   const $body = $('body');
@@ -49,7 +50,7 @@ $(function () {
   $message.appendTo($body);
 
   // insert the full board (includes the preview row + visible playable board)
-  const $container = $('<div>');
+  let $container = $('<div>');
   $container.addClass('gameContainer');
   $container.appendTo($body);
 
@@ -172,88 +173,93 @@ $(function () {
   let openRow;
   let eventOnClick, eventOnHover;
   let boardPosition;
-  let whosTurn = turnCount % 2 ? player.two : player.one;
-  // hover-over and on-click functionality for the viewable game board
-  // later: implement hover-over and on-click functionality for the preview row
-  board.forEach(row => {
-    row.forEach($space => {
-      // by hovering over one space, make a "preview" appear over that column
-      let hoverBoard = $space.hover(function () {
-        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        boardPosition = parseInt($space[0].innerHTML);
-        let col = boardPosition % 7;
-        console.log(`Hover column ${col}.`);
-        previewRow[col].addClass(eventOnHover);
-      }, function () {
-        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        col = parseInt($space[0].innerHTML) % 7;
-        previewRow[col].removeClass(eventOnHover);
-      });
-      // by clicking on any column, drop a token into the last available space
-      let clickBoard = $space.click(function () {
-        whosTurn.moves++;
-        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        // position clicked, represents the column to insert but not necessarily the position to insert
-        boardPosition = parseInt($space[0].innerHTML);
-        let col = boardPosition % 7;
-        previewRow[col].removeClass(eventOnHover);
-        openRow = firstOpenRow[col];
-        eventOnClick = turnCount % 2 ? 'fillYellow' : 'fillMagenta';
-        // whosTurn = turnCount % 2 ? player.two : player.one;
-        console.log(`Click column ${col}, board position ${boardPosition}.`);
-        // find first available space in that column
-        console.log(`Available space at row ${firstOpenRow[col]}.`);
-        // drop the player's piece into that column
-        // * create css class for each player piece
-        // * for now, just change space color, animate later
-        $(board[openRow][col]).addClass(eventOnClick);
-        let insertPosition = (openRow * 7) + col;
-        console.log(`Insert at row ${openRow}, col ${col}, board position ${(openRow * 7) + col}.`);
-        // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
-        whosTurn.spaces.push(insertPosition);
-        // whosTurn.spaces.sort(); // INCORRECT, sorts alphabetically, not numerically
-        // add a numerical sorting rule
-        // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
-        whosTurn.spaces.sort((position1, position2) => position1 - position2);
-        let roundIsWon = false;
-        if (whosTurn.spaces.length >= 4) {
-          whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
-          // console.table(whosTurn.combosOf4);
-          roundIsWon = checkForWinningConnection(whosTurn.combosOf4);
-          if (roundIsWon) {
-            $container.addClass('avoidClicks');
-            whosTurn.wins++; // for scoreboard
-            $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
-            $message.addClass('blink');
-            animateWinningConnection();
-          }
-        }
-        console.table(player);
-        console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
-        // update (decrement) the first available space in that column
-        firstOpenRow[col]--;
-        // update (increment) turn
-        turnCount++;
-        whosTurn = turnCount % 2 ? player.two : player.one;
-        if(!roundIsWon && turnCount < 42) {
-          $message.html(`${whosTurn.name}, drop it like it's hot!`);
-        } else if (!roundIsWon) {
-          $message.html(`Woah, we have a draw!`);
-          $message.addClass('blink');
-        }
-        console.table(board[openRow][col]);
-        console.log(`Turn: ${turnCount}`);
-        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        // when a column fills up, make that column unclickable (unplayable)
-        if (firstOpenRow[col] < 0) {
-          disableClicks(col);
-          previewRow[col].removeClass(eventOnHover);
-        } else {
+  playRound();
+  function playRound() {
+    // hover-over and on-click functionality for the viewable game board
+    // later: implement hover-over and on-click functionality for the preview row
+    board.forEach(row => {
+      row.forEach($space => {
+        // by hovering over one space, make a "preview" appear over that column
+        let hoverBoard = $space.hover(function () {
+          eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+          boardPosition = parseInt($space[0].innerHTML);
+          let col = boardPosition % 7;
+          console.log(`Hover column ${col}.`);
           previewRow[col].addClass(eventOnHover);
-        }
+        }, function () {
+          eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+          col = parseInt($space[0].innerHTML) % 7;
+          previewRow[col].removeClass(eventOnHover);
+        });
+        // by clicking on any column, drop a token into the last available space
+        let clickBoard = $space.click(function () {
+          whosTurn.moves++;
+          eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+          // position clicked, represents the column to insert but not necessarily the position to insert
+          boardPosition = parseInt($space[0].innerHTML);
+          let col = boardPosition % 7;
+          previewRow[col].removeClass(eventOnHover);
+          openRow = firstOpenRow[col];
+          eventOnClick = turnCount % 2 ? 'fillYellow' : 'fillMagenta';
+          // whosTurn = turnCount % 2 ? player.two : player.one;
+          console.log(`Click column ${col}, board position ${boardPosition}.`);
+          // find first available space in that column
+          console.log(`Available space at row ${firstOpenRow[col]}.`);
+          // drop the player's piece into that column
+          // * create css class for each player piece
+          // * for now, just change space color, animate later
+          $(board[openRow][col]).addClass(eventOnClick);
+          let insertPosition = (openRow * 7) + col;
+          console.log(`Insert at row ${openRow}, col ${col}, board position ${(openRow * 7) + col}.`);
+          // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
+          whosTurn.spaces.push(insertPosition);
+          // whosTurn.spaces.sort(); // INCORRECT, sorts alphabetically, not numerically
+          // add a numerical sorting rule
+          // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
+          whosTurn.spaces.sort((position1, position2) => position1 - position2);
+          let roundIsWon = false;
+          if (whosTurn.spaces.length >= 4) {
+            whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
+            // console.table(whosTurn.combosOf4);
+            roundIsWon = checkForWinningConnection(whosTurn.combosOf4);
+            if (roundIsWon) {
+              $container.addClass('avoidClicks');
+              whosTurn.wins++; // for scoreboard
+              $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
+              $message.addClass('blink');
+              animateWinningConnection();
+              clearGameBoard(5000);
+            }
+          }
+          console.table(player);
+          console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
+          // update (decrement) the first available space in that column
+          firstOpenRow[col]--;
+          // update (increment) turn
+          turnCount++;
+          whosTurn = turnCount % 2 ? player.two : player.one;
+          if (!roundIsWon && turnCount < 42) {
+            $message.html(`${whosTurn.name}, drop it like it's hot!`);
+          } else if (!roundIsWon) {
+            $message.html(`Woah, we have a draw!`);
+            $message.addClass('blink');
+            clearGameBoard(5000);
+
+          }
+          console.table(board[openRow][col]);
+          console.log(`Turn: ${turnCount}`);
+          eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+          // when a column fills up, make that column unclickable (unplayable)
+          if (firstOpenRow[col] < 0) {
+            disableClicks(col);
+            previewRow[col].removeClass(eventOnHover);
+          } else {
+            previewRow[col].addClass(eventOnHover);
+          }
+        });
       });
     });
-  });
+  }
 
   function disableClicks(col) {
     for(let i = 0; i < board.length; i++) {
@@ -261,8 +267,43 @@ $(function () {
     }
   }
 
-  function clearBoard() {
+  function clearGameBoard(time) {
     // console.table(board);
+    // $container.addClass('flipBoard');
+    board.forEach(row => {
+      row.forEach($space => {
+        setTimeout(function() {
+          $space.removeClass('winner');
+          $space.removeClass('fillMagenta');
+          $space.removeClass('fillYellow');
+          $space.addClass('clear');
+          $message.html(`Prepare for the next round.`);
+        }, time);
+      });
+    });
+    setTimeout(function () {
+      $container.remove();
+      $container = $('<div>');
+      $container.addClass('gameContainer');
+      $container.appendTo($body);
+      resetRoundData();
+      initGameBoard();
+      playRound();
+    }, time + 1000);
+  }
+
+  function resetRoundData() {
+    turnCount = 0;
+    player.one.spaces = [];
+    player.one.combosOf4 = [];
+    player.one.moves = 0;
+    player.two.spaces = [];
+    player.two.combosOf4 = [];
+    player.two.moves = 0;
+    board = createArray(6, 7);
+    winningConnection = [];
+    firstOpenRow = [5, 5, 5, 5, 5, 5, 5];
+    whosTurn = turnCount % 2 ? player.two : player.one;
   }
 
   function checkForWinningConnection(combosOf4) {
@@ -303,6 +344,38 @@ $(function () {
       console.log(board[row][col]);
       $(board[row][col]).addClass('winner');
     });
+  }
+
+  function initGameBoard() {
+    $message.html(`${whosTurn.name}, drop it like it's hot!`);
+    // fill the board with spaces, fill one preview row above the board
+    for (let i = 0; i < 7; i++) {
+      // fill the preview row with non-playable spaces
+      const $previewSpace = $('<div>');
+      $previewSpace.addClass('space preview');
+      $previewSpace.appendTo($container);
+      previewRow[i] = $previewSpace;
+      // insert a down arrow into each preview space
+      const $downArrow = $('<i>');
+      $downArrow.addClass('fas fa-arrow-down');
+      $downArrow.addClass('icon arrow');
+      $downArrow.appendTo($previewSpace);
+    }
+    console.table(previewRow);
+
+    // store board's elements into the multi-dimensional array: board[row][col]
+    for (let i = 0; i < 42; i++) {
+      // fill each column with playable spaces
+      const $space = $('<div>');
+      $space.addClass('space');
+      $space.html(i);
+      $space.appendTo($container);
+
+      // store each space on the viewable game board into the 2d array
+      let row = Math.floor(i / 7);
+      let col = i % 7;
+      board[row][col] = $space;
+    }
   }
 
   // Akseli Palén's solution for calculating combinations of elements in Array
