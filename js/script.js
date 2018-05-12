@@ -170,16 +170,16 @@ $(function () {
   board.forEach(row => {
     row.forEach($space => {
       // by hovering over one space, make a "preview" appear over that column
-      let hoverBoard = $space.hover(function () {
-        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        let col = parseInt($space[0].innerHTML) % 7;
-        console.log(`Hover column ${col+1}.`);
-        previewRow[col].addClass(eventOnHover);
-      }, function () {
-        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        let col = parseInt($space[0].innerHTML) % 7;
-        previewRow[col].removeClass(eventOnHover);
-      });
+      // let hoverBoard = $space.hover(function () {
+      //   let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+      //   let col = parseInt($space[0].innerHTML) % 7;
+      //   console.log(`Hover column ${col+1}.`);
+      //   previewRow[col].addClass(eventOnHover);
+      // }, function () {
+      //   let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+      //   let col = parseInt($space[0].innerHTML) % 7;
+      //   previewRow[col].removeClass(eventOnHover);
+      // });
       // by clicking on any column, drop a token into the last available space
       let clickBoard = $space.click(function () {
         let col = parseInt($space[0].innerHTML) % 7;
