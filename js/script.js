@@ -113,7 +113,9 @@ $(function () {
     [10, 16, 22, 28], [11, 17, 23, 29], [12, 18, 24, 30], [13, 19, 25, 31],
     [17, 23, 29, 35], [18, 24, 30, 36], [19, 25, 31, 37], [20, 26, 32, 38]
   ];
-  winningConnectionsOf4.sort();
+  // Array.sort() works alphabetically by default, add a numerical sorting rule
+  // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
+  winningConnectionsOf4.sort((position1, position2) => position1 - position2);
   console.log(winningConnectionsOf4);
 
   // a player's winning connection, can be greater than 4 in a row
@@ -295,6 +297,11 @@ $(function () {
     console.log($container[0]);
     winningConnection.forEach(winningPosition => {
       // animate
+      let row = 0, col = 0;
+      row = Math.floor(winningPosition / 7);
+      col = winningPosition % 7;
+      console.log(board[row][col]);
+      $(board[row][col]).addClass('winner');
     });
   }
 
