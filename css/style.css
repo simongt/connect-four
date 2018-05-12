@@ -200,6 +200,14 @@ p {
   margin: auto;
 }
 
+.space.fillYellow {
+  background-color: yellow;
+}
+
+.space.fillMagenta {
+  background-color: magenta;
+}
+
 .space.preview {
   border: 5px dashed cyan;
   font-size: 18px;
