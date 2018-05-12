@@ -201,7 +201,7 @@ $(function () {
         firstOpenRow[col]--;
         // update (increment) turn
         turnCount++;
-        $message.html(`${whosTurn.name}, it's your turn.`);
+        $message.html(`${whosTurn.name}, drop it like it's hot!`);
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
         console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
