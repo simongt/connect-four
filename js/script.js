@@ -1,12 +1,16 @@
+/**
+ * next steps: 
+ *  implement auto load of next gameround ☑️
+ *  have the spaces populate with an entrance effect
+ *  implement scoreboard display & update per round 
+ *  implement click & hover functionality on preview row
+ *  landing page, animate "connect 4" title from center?
+ *  implement responsiveness, check on other devices
+ *  go thru grading rubric
+ *  attempt ai implementation
+ *  create presentation slides
+ */
 $(function () {
-  // track the number of turns that have taken place
-  let turnCount = 0;
-  // keep a score
-  const score = {
-    player1: 0, // player 1 is magenta
-    player2: 0, // player 2 is yellow
-    ties: 0
-  };
   /*
    * 2 players: player.one and player.two
    * - each player will have their chosen spaces pushed into an array
@@ -21,7 +25,7 @@ $(function () {
       combosOf4: [],
       color: 'magenta',
       moves: 0,
-      wins: score.player1
+      wins: 0
     },
     two: {
       name: 'Player 2',
@@ -29,23 +33,33 @@ $(function () {
       combosOf4: [],
       color: 'yellow',
       moves: 0,
-      wins: score.player2
+      wins: 0
     }
   };
+
+  // track the number of turns that have taken place
+  let turnCount = 0;
   let whosTurn = turnCount % 2 ? player.two : player.one;
+  // keep a score
+  // const score = {
+  //   player1: 0, // player 1 is magenta
+  //   player2: 0, // player 2 is yellow
+  //   ties: 0
+  // };
 
   // grab the html body
   const $body = $('body');
 
   // insert game title
-  const $gameTitle = $('<h1>');
+  let $gameTitle = $('<h1>');
   $gameTitle.addClass('neon');
   $gameTitle.html(`Connect 4`);
   $gameTitle.appendTo($body);
   
   // insert message below game title
-  const $message = $('<p>');
-  $message.addClass('message fadeIn');
+  let $message = $('<p>');
+  $message.addClass('message');
+  $message.toggleClass('fadeIn');
   $message.html(`${player.one.name}, drop it like it's hot!`);
   $message.appendTo($body);
 
@@ -53,6 +67,19 @@ $(function () {
   let $container = $('<div>');
   $container.addClass('gameContainer');
   $container.appendTo($body);
+
+  let $scoreBoardTitle = $('<p>');
+  $scoreBoardTitle.addClass('scoreBoardTitle');
+  $scoreBoardTitle.html('ScoreBoard');
+  $scoreBoardTitle.appendTo($body);
+
+  let $scoreBoard = $('<div>');
+  $scoreBoard.addClass('scoreBoard');
+  $scoreBoard.appendTo($body);
+
+  for(let i = 0; i < 3; i++) {
+    // init score board
+  }
 
   let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
@@ -286,10 +313,23 @@ $(function () {
       $container = $('<div>');
       $container.addClass('gameContainer');
       $container.appendTo($body);
+      updateScore();
       resetRoundData();
       initGameBoard();
       playRound();
     }, time + 1000);
+  }
+
+  function updateScore() {
+    $scoreBoardTitle.remove();
+    $scoreBoardTitle = $('<p>');
+    $scoreBoardTitle.addClass('scoreBoardTitle');
+    $scoreBoardTitle.html('ScoreBoard');
+    $scoreBoardTitle.appendTo($body);
+    $scoreBoard.remove();
+    $scoreBoard = $('<div>');
+    $scoreBoard.addClass('scoreBoard');
+    $scoreBoard.appendTo($body);
   }
 
   function resetRoundData() {
