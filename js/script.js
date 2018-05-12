@@ -88,7 +88,7 @@ $(function () {
    * - 24 horizontal connections of four (4 solutions x 6 rows)
    * - 24 diagonal connections of four (12 solutions x 2 directions)
    */
-  const winningConnections = [
+  const winningConnectionsOf4 = [
     // vertical solutions
     [0, 7, 14, 21], [7, 14, 21, 28], [14, 21, 28, 35],
     [1, 8, 15, 22], [8, 15, 22, 29], [15, 22, 29, 36],
@@ -113,8 +113,8 @@ $(function () {
     [10, 16, 22, 28], [11, 17, 23, 29], [12, 18, 24, 30], [13, 19, 25, 31],
     [17, 23, 29, 35], [18, 24, 30, 36], [19, 25, 31, 37], [20, 26, 32, 38]
   ];
-  winningConnections.sort();
-  console.log(winningConnections);
+  winningConnectionsOf4.sort();
+  console.log(winningConnectionsOf4);
 
   /** each column will be its own JSON object or array */
 
@@ -214,12 +214,12 @@ $(function () {
         if (whosTurn.spaces.length >= 4) {
           whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
           // console.table(whosTurn.combosOf4);
-          roundWon = checkForWinningCombo(whosTurn.combosOf4);
+          roundWon = checkForWinningConnection(whosTurn.combosOf4);
           if (roundWon) {
-            whosTurn.wins++;
+            $container.addClass('avoidClicks');
+            whosTurn.wins++; // for scoreboard
             $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves!`);
             $message.addClass('blink');
-            $container.addClass('avoidClicks');
           }
         }
         console.table(player);
@@ -256,23 +256,38 @@ $(function () {
     // console.table(board);
   }
 
-  function checkForWinningCombo(combosOf4) {
-    for (const combo of combosOf4) { // player combos
-      for (const winningConnection of winningConnections) { // winning combos
-        if ((combo[0] === winningConnection[0]) &&
-          (combo[1] === winningConnection[1]) &&
-          (combo[2] === winningConnection[2]) &&
-          (combo[3] === winningConnection[3])) {
-          console.log(`${combo} is a connection of 4.`);
-          // noMoreTurnsAllowed();
-          // animateWinningCombo(combo);
-          return true;
+  let winningConnection = [];
+  function checkForWinningConnection(combosOf4) {
+    let isWin = false;
+    for (const comboOf4 of combosOf4) { // player combos
+      for (const winningConnectionOf4 of winningConnectionsOf4) { // connections of 4
+        if ((comboOf4[0] === winningConnectionOf4[0]) &&
+            (comboOf4[1] === winningConnectionOf4[1]) &&
+            (comboOf4[2] === winningConnectionOf4[2]) &&
+            (comboOf4[3] === winningConnectionOf4[3])) {
+          console.log(`${comboOf4} is a connection of 4.`);
+          // animateWinningConnection(combo);
+          // combo gives us the board position that we want to animate
+          comboOf4.forEach(boardPosition => {
+            if (!winningConnection.includes(boardPosition)) {
+              winningConnection.push(boardPosition);
+            }
+          });
+          isWin = true;
         }
+        // will continue to search for winning connections in case > 4 in a row
       }
     }
-    return false;
+    console.log(winningConnection);
+    return isWin;
   }
 
+  function animateWinningConnection(combo) {
+    console.log(`Winner: ${whosTurn.name}`);
+    console.log(`Animate winning connection.`);
+    console.table(board[0]);
+    console.table(combo);
+  }
 
   // Akseli Palén's solution for calculating combinations of elements in Array
   // Github: https://gist.github.com/axelpale/3118596
