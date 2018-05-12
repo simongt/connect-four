@@ -164,30 +164,32 @@ $(function () {
     board[row][col] = $space;
   }
 
-
+  let whosTurn;
+  let openRow;
+  let eventOnClick, eventOnHover;
   // hover-over and on-click functionality for the viewable game board
   // later: implement hover-over and on-click functionality for the preview row
   board.forEach(row => {
     row.forEach($space => {
       // by hovering over one space, make a "preview" appear over that column
       let hoverBoard = $space.hover(function () {
-        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
         let col = parseInt($space[0].innerHTML) % 7;
         console.log(`Hover column ${col + 1}.`);
         previewRow[col].addClass(eventOnHover);
       }, function () {
-        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        let col = parseInt($space[0].innerHTML) % 7;
+        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
+        col = parseInt($space[0].innerHTML) % 7;
         previewRow[col].removeClass(eventOnHover);
       });
       // by clicking on any column, drop a token into the last available space
       let clickBoard = $space.click(function () {
+        eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
         let col = parseInt($space[0].innerHTML) % 7;
-        let eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
         previewRow[col].removeClass(eventOnHover);
-        let openRow = firstOpenRow[col];
-        let eventOnClick = turnCount % 2 ? 'fillYellow' : 'fillMagenta';
-        let whosTurn = turnCount % 2 ? player.one : player.two;
+        openRow = firstOpenRow[col];
+        eventOnClick = turnCount % 2 ? 'fillYellow' : 'fillMagenta';
+        whosTurn = turnCount % 2 ? player.one : player.two;
         console.log(`Click column ${col+1}.`);
         // find first available space in that column
         console.log(`Available space at row ${firstOpenRow[col] + 1}.`);
@@ -200,17 +202,24 @@ $(function () {
         // update (increment) turn
         turnCount++;
         $message.html(`${whosTurn.name}, it's your turn.`);
-        // when a column fills up, make that column unclickable (unplayable)
-        if (firstOpenRow[col] < 0) {
-          clickBoard.off();
-        }
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
         console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        previewRow[col].addClass(eventOnHover);
+        // when a column fills up, make that column unclickable (unplayable)
+        if (firstOpenRow[col] < 0) {
+          disableClicks(col);
+          previewRow[col].removeClass(eventOnHover);
+        } else {
+          previewRow[col].addClass(eventOnHover);
+        }
       });
     });
   });
+  function disableClicks(col) {
+    for(let i = 0; i < board.length; i++) {
+      board[i][col].addClass('avoidClicks');
+    }
+  }
   // console.table(board);
 });
