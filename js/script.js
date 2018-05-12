@@ -20,6 +20,7 @@ $(function () {
       spaces: [],
       combosOf4: [],
       color: 'magenta',
+      moves: 0,
       wins: score.player1
     },
     two: {
@@ -27,6 +28,7 @@ $(function () {
       spaces: [],
       combosOf4: [],
       color: 'yellow',
+      moves: 0,
       wins: score.player2
     }
   };
@@ -187,6 +189,7 @@ $(function () {
       });
       // by clicking on any column, drop a token into the last available space
       let clickBoard = $space.click(function () {
+        whosTurn.moves++;
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
         // position clicked, represents the column to insert but not necessarily the position to insert
         boardPosition = parseInt($space[0].innerHTML);
@@ -207,9 +210,17 @@ $(function () {
         // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
         whosTurn.spaces.push(insertPosition);
         whosTurn.spaces.sort();
+        let roundWon = false;
         if (whosTurn.spaces.length >= 4) {
           whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
-          console.table(whosTurn.combosOf4);
+          // console.table(whosTurn.combosOf4);
+          roundWon = checkForWinningCombo(whosTurn.combosOf4);
+          if (roundWon) {
+            whosTurn.wins++;
+            $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves!`);
+            $message.addClass('blink');
+            $container.addClass('avoidClicks');
+          }
         }
         console.table(player);
         console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
@@ -218,7 +229,9 @@ $(function () {
         // update (increment) turn
         turnCount++;
         whosTurn = turnCount % 2 ? player.two : player.one;
-        $message.html(`${whosTurn.name}, drop it like it's hot!`);
+        if(!roundWon) {
+          $message.html(`${whosTurn.name}, drop it like it's hot!`);
+        }
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
@@ -242,6 +255,24 @@ $(function () {
   function clearBoard() {
     // console.table(board);
   }
+
+  function checkForWinningCombo(combosOf4) {
+    for (const combo of combosOf4) { // player combos
+      for (const winningConnection of winningConnections) { // winning combos
+        if ((combo[0] === winningConnection[0]) &&
+          (combo[1] === winningConnection[1]) &&
+          (combo[2] === winningConnection[2]) &&
+          (combo[3] === winningConnection[3])) {
+          console.log(`${combo} is a connection of 4.`);
+          // noMoreTurnsAllowed();
+          // animateWinningCombo(combo);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 
   // Akseli Palén's solution for calculating combinations of elements in Array
   // Github: https://gist.github.com/axelpale/3118596

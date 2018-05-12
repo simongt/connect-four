@@ -97,7 +97,12 @@ p {
 
 .fadeIn {
   -webkit-animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-  animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+          animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+.blink {
+ 	-webkit-animation: blink-1 2.0s 5 both;
+	        animation: blink-1 2.0s 5 both;
 }
 
 .avoidClicks {
@@ -120,9 +125,6 @@ p {
  * Built for 720px width screen in mind, roughly about 900px height.
  * (will make it responsive for 360px + 1080px + 2160px later)
  */
-
-
-
 .gameContainer {
   background-color: transparent;
   display: grid;
@@ -596,6 +598,31 @@ p {
   }
   100% {
     opacity: 1;
+  }
+}
+
+/* animation blink */
+@-webkit-keyframes blink-1 {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink-1 {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
   }
 }
 
