@@ -237,6 +237,7 @@ $(function () {
           $message.html(`${whosTurn.name}, drop it like it's hot!`);
         } else if (!roundIsWon) {
           $message.html(`Woah, we have a draw!`);
+          $message.addClass('blink');
         }
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
