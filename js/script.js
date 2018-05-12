@@ -18,14 +18,14 @@ $(function () {
     one: {
       name: 'Player 1',
       spaces: [],
-      connections: [],
+      combosOf4: [],
       color: 'magenta',
       wins: score.player1
     },
     two: {
       name: 'Player 2',
       spaces: [],
-      connections: [],
+      combosOf4: [],
       color: 'yellow',
       wins: score.player2
     }
@@ -42,7 +42,7 @@ $(function () {
   
   // insert message below game title
   const $message = $('<p>');
-  $message.addClass('message');
+  $message.addClass('message fadeIn');
   $message.html(`${player.one.name}, drop it like it's hot!`);
   $message.appendTo($body);
 
@@ -50,12 +50,6 @@ $(function () {
   const $container = $('<div>');
   $container.addClass('gameContainer');
   $container.appendTo($body);
-  // const $previewRow = $('<div>');
-  // $previewRow.addClass('preview');
-  // $previewRow.appendTo($container);
-  // const $board = $('<div>');
-  // $board.addClass('board');
-  // $board.appendTo($container);
 
   let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
@@ -79,6 +73,12 @@ $(function () {
                                    *  [ 1 ] [ 28 ... 34 ]
                                    *  [ 0 ] [ 35 ... 41 ]
                                    */
+
+  // let filledSpaces = createArray(6, 7);
+  // filledSpaces.forEach(row => {
+  //   row.fill(null);
+  // });
+  // console.table(filledSpaces);
 
   /**
    * in total, there will be 69 possible winning connections of four
@@ -164,9 +164,10 @@ $(function () {
     board[row][col] = $space;
   }
 
-  let whosTurn;
   let openRow;
   let eventOnClick, eventOnHover;
+  let boardPosition;
+  let whosTurn = turnCount % 2 ? player.two : player.one;
   // hover-over and on-click functionality for the viewable game board
   // later: implement hover-over and on-click functionality for the preview row
   board.forEach(row => {
@@ -174,8 +175,10 @@ $(function () {
       // by hovering over one space, make a "preview" appear over that column
       let hoverBoard = $space.hover(function () {
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        let col = parseInt($space[0].innerHTML) % 7;
+        boardPosition = parseInt($space[0].innerHTML);
+        let col = boardPosition % 7;
         console.log(`Hover column ${col + 1}.`);
+
         previewRow[col].addClass(eventOnHover);
       }, function () {
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
@@ -185,26 +188,39 @@ $(function () {
       // by clicking on any column, drop a token into the last available space
       let clickBoard = $space.click(function () {
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
-        let col = parseInt($space[0].innerHTML) % 7;
+        // position clicked, represents the column to insert but not necessarily the position to insert
+        boardPosition = parseInt($space[0].innerHTML);
+        let col = boardPosition % 7;
         previewRow[col].removeClass(eventOnHover);
         openRow = firstOpenRow[col];
         eventOnClick = turnCount % 2 ? 'fillYellow' : 'fillMagenta';
-        whosTurn = turnCount % 2 ? player.one : player.two;
-        console.log(`Click column ${col+1}.`);
+        // whosTurn = turnCount % 2 ? player.two : player.one;
+        console.log(`Click column ${col}, board position ${boardPosition}.`);
         // find first available space in that column
-        console.log(`Available space at row ${firstOpenRow[col] + 1}.`);
+        console.log(`Available space at row ${firstOpenRow[col]}.`);
         // drop the player's piece into that column
         // * create css class for each player piece
         // * for now, just change space color, animate later
         $(board[openRow][col]).addClass(eventOnClick);
+        let insertPosition = (openRow * 7) + col;
+        console.log(`Insert at row ${openRow}, col ${col}, board position ${(openRow * 7) + col}.`);
+        // whosTurn.spaces.push(boardPosition); // INCORRECT, instead use position where piece drops to?
+        whosTurn.spaces.push(insertPosition);
+        whosTurn.spaces.sort();
+        if (whosTurn.spaces.length >= 4) {
+          whosTurn.combosOf4 = getCombosOf(whosTurn.spaces, 4);
+          console.table(whosTurn.combosOf4);
+        }
+        console.table(player);
+        console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
         // update (decrement) the first available space in that column
         firstOpenRow[col]--;
         // update (increment) turn
         turnCount++;
+        whosTurn = turnCount % 2 ? player.two : player.one;
         $message.html(`${whosTurn.name}, drop it like it's hot!`);
         console.table(board[openRow][col]);
         console.log(`Turn: ${turnCount}`);
-        console.log(`First available space at col ${col} is now row ${firstOpenRow[col]}`);
         eventOnHover = (turnCount % 2) ? 'pulsateYellow' : 'pulsateMagenta';
         // when a column fills up, make that column unclickable (unplayable)
         if (firstOpenRow[col] < 0) {
@@ -216,10 +232,73 @@ $(function () {
       });
     });
   });
+
   function disableClicks(col) {
     for(let i = 0; i < board.length; i++) {
       board[i][col].addClass('avoidClicks');
     }
   }
-  // console.table(board);
+
+  function clearBoard() {
+    // console.table(board);
+  }
+
+  // Akseli Palén's solution for calculating combinations of elements in Array
+  // Github: https://gist.github.com/axelpale/3118596
+  //
+  // Algorithm description:
+  // To get k-combinations of a set, we want to join each element
+  // with all (k-1)-combinations of the other elements. The set of
+  // these k-sized sets would be the desired result. However, as we
+  // represent sets with lists, we need to take duplicates into
+  // account. To avoid producing duplicates and also unnecessary
+  // computing, we use the following approach: each element i
+  // divides the list into three: the preceding elements, the
+  // current element i, and the subsequent elements. For the first
+  // element, the list of preceding elements is empty. For element i,
+  // we compute the (k-1)-computations of the subsequent elements,
+  // join each with the element i, and store the joined to the set of
+  // computed k-combinations. We do not need to take the preceding
+  // elements into account, because they have already been the i:th
+  // element so they are already computed and stored. When the length
+  // of the subsequent list drops below (k-1), we cannot find any
+  // (k-1)-combs, hence the upper limit for the iteration.
+  function getCombosOf(set, k) {
+    var i, j, combos, head, tailCombos;
+
+    // There is no way to take e.g. sets of 5 elements from
+    // a set of 4.
+    if (k > set.length || k <= 0) {
+      return [];
+    }
+
+    // K-sized set has only one K-sized subset.
+    if (k == set.length) {
+      return [set];
+    }
+
+    // There is N 1-sized subsets in a N-sized set.
+    if (k == 1) {
+      combos = [];
+      for (i = 0; i < set.length; i++) {
+        combos.push([set[i]]);
+      }
+      return combos;
+    }
+
+    // Assert {1 < k < set.length}
+    combos = [];
+    for (i = 0; i < set.length - k + 1; i++) {
+      // head is a list that includes only our current element.
+      head = set.slice(i, i + 1);
+      // We take smaller combinations from the subsequent elements
+      tailCombos = getCombosOf(set.slice(i + 1), k - 1);
+      // For each (k-1)-combination we join it with the current
+      // and store it to the set of k-combinations.
+      for (j = 0; j < tailCombos.length; j++) {
+        combos.push(head.concat(tailCombos[j]));
+      }
+    }
+    return combos;
+  }
 });

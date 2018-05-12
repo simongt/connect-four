@@ -95,6 +95,11 @@ p {
   margin: 0px auto 0px auto;
 }
 
+.fadeIn {
+  -webkit-animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
 .avoidClicks {
   pointer-events: none;
 }
@@ -160,19 +165,19 @@ p {
 }
 
 .space.fillYellow {
-  -webkit-animation: flicker-out-1 2s linear both;
-  animation: flicker-out-1 2s linear both;
+  -webkit-animation: flicker-out-1 3s linear both;
+  animation: flicker-out-1 3s linear both;
   background-color: yellow;
- 	-webkit-animation: bounce-in-top 1.3s both;
- 	animation: bounce-in-top 1.3s both;
+ 	-webkit-animation: bounce-in-top 1.1s both;
+ 	animation: bounce-in-top 1.1s both;
 }
 
 .space.fillMagenta {
-	-webkit-animation: flicker-out-1 2s linear both;
-	animation: flicker-out-1 2s linear both;
+	-webkit-animation: flicker-out-1 3s linear both;
+	animation: flicker-out-1 3s linear both;
 	background-color: magenta;
- 	-webkit-animation: bounce-in-top 1.3s both;
- 	animation: bounce-in-top 1.3s both;
+ 	-webkit-animation: bounce-in-top 1.1s both;
+ 	animation: bounce-in-top 1.1s both;
 }
 
 .space.preview {
@@ -574,3 +579,23 @@ p {
     opacity: 0;
   }
 }
+
+/* animation fade-in */
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
