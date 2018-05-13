@@ -5,14 +5,21 @@
  * - have the spaces populate with an entrance effect ☑️
  * - implement scoreboard display & update per round ☑️
  * - add a button to restart round ☑️
- * - implement responsiveness, check on other devices
- * - clean up js and css code, comment and remove fluff
+ * - implement responsive designs
+ *   -- for same browser, except smaller window height
+ *      --- default page has 760px width, 987px height
+ *      --- make it responsive with min height 480px
+ *   -- for mobile, other browsers with smaller screens
+ *      --- make it responsive with min width 36opx
+ *      --- make it responsive with min height 480px
+ * - clean up js and css code, comment and remove fluff ☑️
  * - implement click & hover functionality on preview row
  * - implement keyboard functionality to drop pieces
  * - clean up transitions & animations between rounds
  * - implement ai & a menu with option to play 1-1 or 1-ai
  * - add button for hint (to suggest a move based on ai)
  * - add button for instructions on how to play
+ * - toggle starting player and color per round
  * - eventually add network functionality to play 1-1 remotely
  * - add bonuses for connections > 4, winning in less moves
  * - go thru grading rubric requirements
@@ -57,15 +64,19 @@ $(function () {
 
   // insert game title
   let $gameTitle = $('<h1>');
-  $gameTitle.addClass('neon');
+  $gameTitle.addClass('titleEntrance');
+  // $gameTitle.addClass('neon');
+
   $gameTitle.html(`Connect 4`);
   $gameTitle.appendTo($body);
-
+  let $startButton = $('<p>');
+  $startButton.addClass('start');
+  $startButton.html('Play');
 
   // insert message below game title
   let $message = $('<p>');
   $message.addClass('message');
-  $message.toggleClass('fadeIn');
+  $message.addClass('fadeIn');
   $message.html(`${player.one.name}, drop it like it's hot!`);
 
   // insert make-shift hacky border to top of container
@@ -223,10 +234,7 @@ $(function () {
     }
   }
 
-
-
-  // append elements to DOM in sequence
-  setTimeout(() => {
+  function displayGameBoard() {
     $message.appendTo($body); // fade in
     $containerLid.appendTo($body);
     $container.appendTo($body);
@@ -239,9 +247,35 @@ $(function () {
     $tiesScore.appendTo($scoreBoard);
     $player2Score.appendTo($scoreBoard);
     $resetButton.appendTo($body);
-    populateGameBoard();
-    playRound();
-  }, 3500);
+  }
+
+  // TRANSITION FROM LANDING DISPLAY TO GAME DISPLAY
+  // animate connect 4 entrance to center page (1.5s)
+  //   have some kind of animation looping until it is clicked
+  //   display start button below connect 4 at center page
+  //     when start button is clicked, the connect 4 title slides up
+  //     the game board is displayed and populated
+  // GAME DISPLAY
+  landingDisplay();
+  function landingDisplay() {
+    setTimeout(() => {
+      $startButton.appendTo($body);
+    }, 3000);
+    let clickStart = $startButton.click(function () {
+      clickStart.off();
+      $startButton.addClass('startClicked'); // not working 🧐
+      $gameTitle.removeClass('titleEntrance');
+      $gameTitle.addClass('neon glow');
+      $gameTitle.addClass('titleSlideUp');
+      $startButton.remove();
+      // append elements to DOM in sequence
+      setTimeout(() => {
+        displayGameBoard();
+        populateGameBoard();
+        playRound();
+      }, 500);
+    });
+  }
 
   let openRow;
   let eventOnClick, eventOnHover;
