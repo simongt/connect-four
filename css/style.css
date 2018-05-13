@@ -1,4 +1,18 @@
 /*
+ * - implement responsive designs
+ *   -- for same browser, except smaller window height
+ *      --- default page has 760px width, 987px height
+ *      --- make it responsive with min height 480px
+ *   -- for mobile, other browsers with smaller screens
+ *      --- make it responsive with min width 36opx
+ *      --- make it responsive with min height 480px
+ */
+@media (min-width: 360px, min-height: 480px) {
+
+}
+
+
+/*
  * this was added to debug an issue with landing page intro, still working on
  * it (animations are shifting things by an offset that i'm not understanding)
  *
@@ -13,8 +27,8 @@
 /* general html page formatting, let the body inherit every setting directly */
 body, html {
   background: black;
-  min-width: 760px;
-  min-height: 987px;
+  max-width: 760px;
+  max-height: 987px;
   margin: 0 auto;
   overflow: hidden;
   /*
@@ -82,11 +96,11 @@ p {
 .title.enter {
   /* add padding so that animation can land @ target */
   padding: var(--animation-shift) 0 0 0;
-  /* blur-out-expand, w: http://animista.net */
-  -webkit-animation: blur-out-expand 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) alternate-reverse both,
-                     neon-glow 4s infinite 2s both;
-          animation: blur-out-expand 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) alternate-reverse both,
-                     neon-glow 4s infinite 2s both;
+  /* slide-in-blurred-top, w: http://animista.net */
+  -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                     neon-glow 4s infinite 1s both;
+        	animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                     neon-glow 4s infinite 1s both;
 }
 
 /* add padding so that title animation can land @ target */
@@ -156,6 +170,12 @@ p {
 	        animation: blink-1 1.5s 3 both;
 }
 
+/* slide in from top, start blurry and end unblurred */
+.slide-in-blurred-top {
+  /* slide-in-blurred-top, w: http://animista.net */
+	-webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+	        animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
 /*
  * since the preview row is a part of the game container, setting a border at 
  * the top would look akward with all the extra space, therefore i used a hacky
@@ -700,26 +720,45 @@ p {
     transform: translateY(--animation-unshift);
   }
 }
-/* animation blur-out-expand */
-@-webkit-keyframes blur-out-expand {
+/* animation slide-in-blurred-top */
+@-webkit-keyframes slide-in-blurred-top {
   0% {
-    -webkit-filter: blur(0.01);
-    filter: blur(0.01);
+    -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+    transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
+    opacity: 0;
   }
   100% {
-    letter-spacing: 1em;
-    -webkit-filter: blur(24px) opacity(0%);
-    filter: blur(24px) opacity(0%);
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+    transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
   }
 }
-@keyframes blur-out-expand {
+
+@keyframes slide-in-blurred-top {
   0% {
-    -webkit-filter: blur(0.01);
-    filter: blur(0.01);
+    -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+    transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
+    opacity: 0;
   }
   100% {
-    letter-spacing: 1em;
-    -webkit-filter: blur(24px) opacity(0%);
-    filter: blur(24px) opacity(0%);
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+    transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
   }
 }

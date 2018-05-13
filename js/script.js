@@ -15,6 +15,7 @@
  * - clean up js and css code, comment and remove fluff ☑️
  * - implement click & hover functionality on preview row
  * - implement keyboard functionality to drop pieces
+ * - clean up transitions & animations on landing page ☑️
  * - clean up transitions & animations between rounds
  * - implement ai & a menu with option to play 1-1 or 1-ai
  * - add button for hint (to suggest a move based on ai)
@@ -22,6 +23,7 @@
  * - toggle starting player and color per round
  * - eventually add network functionality to play 1-1 remotely
  * - add bonuses for connections > 4, winning in less moves
+ * - add sound effects
  * - go thru grading rubric requirements
  * - create presentation slides
  */
@@ -260,7 +262,7 @@ $(function () {
   function landingDisplay() {
     setTimeout(() => {
       $startButton.appendTo($body);
-    }, 3000);
+    }, 1000);
     let clickStart = $startButton.click(function () {
       clickStart.off();
       $startButton.addClass('startClicked'); // not working 🧐
