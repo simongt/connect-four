@@ -13,7 +13,8 @@ body, html {
   /* height: 100%; */
   margin: 0 auto;
   overflow: hidden;
-
+	/* -webkit-animation: color-change-5x 10s linear infinite both;
+	        animation: color-change-5x 10s linear infinite both; */
   /* disable text highlighting, due to accidental click and drag over hidden labels */
   /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
   -webkit-touch-callout: none; /* iOS Safari */
@@ -22,8 +23,7 @@ body, html {
        -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
          -o-user-select: none;
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 /* text format */
@@ -84,8 +84,8 @@ p {
 }
 
 .fadeIn {
-	-webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
-          animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+	-webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+          animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
 }
 
 .blink {
@@ -94,15 +94,15 @@ p {
 }
 
 .containerLid {
-  transform: translateY(var(--animation-unshift));
   width: 735px;
   margin: 90px auto 0 auto;
   display: block;
   border-style: solid;
   border-color: white;
   opacity: 1;
-	/* -webkit-animation: slit-in-vertical 0.5s ease-out 0.25s both;
-          animation: slit-in-vertical 0.5s ease-out 0.25s both; */
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  transform: translateY(var(--animation-unshift));
 }
 
 /*
@@ -112,7 +112,6 @@ p {
  *  - will be including responsive design for lower resolutions < w: 800px
  */
 .gameContainer {
-  transform: translateY(var(--animation-unshift));
   background-color: transparent;
   display: grid;
   grid-template-areas:
@@ -138,6 +137,9 @@ p {
   border-image: linear-gradient(to top, white 0%, white 86%, transparent 86%, transparent 100%);
   border-image-slice: 1;
   border-width: 6px;
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  transform: translateY(var(--animation-unshift));
 }
 /* board space, could be either preview or playable */
 .space {
@@ -231,6 +233,8 @@ p {
   border-color: white;
   border-width: 0 4px 4px 4px;
   border-radius: 0px;
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
 }
 .scoreBoard {
   transform: translateY(var(--animation-unshift));
@@ -246,6 +250,8 @@ p {
   border-color: white;
   border-width: 0 6px 6px 6px;
   border-radius: 0px;
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
 }
 .score {
   font: normal      /* style */
@@ -263,22 +269,27 @@ p {
   color: magenta;
   font-size: 70px;
   margin: -.4em auto 0 auto;
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+          animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
 }
 .score.player2 {
   color: yellow;
   font-size: 70px;
   margin: -.4em auto 0 auto;
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+          animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
 }
 .score.ties {
   color: cyan;
   font-size: 36px;
   margin: 0.1em auto 0 auto;
+  -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
 }
 
 .avoidClicks {
   pointer-events: none;
 }
-
 /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -561,5 +572,44 @@ p {
     letter-spacing: 1em;
     -webkit-filter: blur(12px) opacity(0%);
     filter: blur(12px) opacity(0%);
+  }
+}
+/**
+ * ----------------------------------------
+ * animation color-change-5x
+ * ----------------------------------------
+ */
+@-webkit-keyframes color-change-5x {
+  0% {
+    background: rgba(0, 255, 255, 0.250);
+  }
+  25% {
+    background: rgba(0, 0, 0, 0.250);
+  }
+  50% {
+    background: rgba(255, 0, 255, 0.250);
+  }
+  75% {
+    background: rgba(0, 0, 0, 0.250);
+  }
+  100% {
+    background: rgba(255, 255, 0, 0.250);
+  }
+}
+@keyframes color-change-5x {
+  0% {
+    background: rgba(0, 255, 255, 0.250);
+  }
+  25% {
+    background: rgba(0, 0, 0, 0.250);
+  }
+  50% {
+    background: rgba(255, 0, 255, 0.250);
+  }
+  75% {
+    background: rgba(0, 0, 0, 0.250);
+  }
+  100% {
+    background: rgba(255, 255, 0, 0.250);
   }
 }
