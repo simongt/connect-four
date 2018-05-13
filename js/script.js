@@ -1,16 +1,22 @@
-/**
+/*
  * next steps: 
- *  implement auto load of next gameround ☑️
- *  have the spaces populate with an entrance effect
- *  implement scoreboard display & update per round ☑️
- *  implement click & hover functionality on preview row
- *  button to restart round
- *  landing page, animate "connect 4" title from center
- *  implement responsiveness, check on other devices
- *  go thru grading rubric
- *  attempt ai implementation
- *  create presentation slides
- *  clean up js and css code, comment and remove fluff
+ * - landing page, animate "connect 4" title from center ☑️
+ * - implement auto load of next game round ☑️
+ * - have the spaces populate with an entrance effect ☑️
+ * - implement scoreboard display & update per round ☑️
+ * - add a button to restart round ☑️
+ * - implement responsiveness, check on other devices
+ * - clean up js and css code, comment and remove fluff
+ * - implement click & hover functionality on preview row
+ * - implement keyboard functionality to drop pieces
+ * - clean up transitions & animations between rounds
+ * - implement ai & a menu with option to play 1-1 or 1-ai
+ * - add button for hint (to suggest a move based on ai)
+ * - add button for instructions on how to play
+ * - eventually add network functionality to play 1-1 remotely
+ * - add bonuses for connections > 4, winning in less moves
+ * - go thru grading rubric requirements
+ * - create presentation slides
  */
 $(function () {
   /*
@@ -72,7 +78,7 @@ $(function () {
 
   let $scoreBoardTitle = $('<p>');
   $scoreBoardTitle.addClass('scoreBoardTitle');
-  $scoreBoardTitle.html('ScoreBoard');
+  $scoreBoardTitle.html('Score Board');
 
   let $scoreBoard = $('<div>');
   $scoreBoard.addClass('scoreBoard');
@@ -99,7 +105,7 @@ $(function () {
 
   let $resetButton = $('<p>');
   $resetButton.addClass('resetRound');
-  $resetButton.html('Restart Level');
+  $resetButton.html('Restart Round');
   
   let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
@@ -130,7 +136,7 @@ $(function () {
   // });
   // console.table(filledSpaces);
 
-  /**
+  /*
    * in total, there will be 69 possible winning connections of four
    * - 21 vertical connections of four (3 solutions x 7 columns)
    * - 24 horizontal connections of four (4 solutions x 6 rows)
@@ -240,8 +246,8 @@ $(function () {
   let openRow;
   let eventOnClick, eventOnHover;
   let boardPosition;
-  
   function playRound() {
+    // the option to restart round is available once the round is being played
     let clickRestart = $resetButton.click(function() {
       clearGameBoard(0);
     });
