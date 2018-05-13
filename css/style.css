@@ -1,27 +1,27 @@
-/** 
- * Available fonts via Google:
- *  font-family: 'Amatic SC', cursive;
- *  font-family: 'Monoton', cursive;
- *  font-family: 'VT323', monospace;
- */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables */
+:root {
+  --animation-shift: 377px;
+  --animation-unshift: -377px;
+}
 
-/* font short-hand: style variant weight size/height family */
-
+/* general page format, this  */
 body, html {
   background: black;
   min-width: 760px;
   /* width: 100%; */
-  /* min-height: 885px; */
+  min-height: 954px;
   /* height: 100%; */
   margin: 0 auto;
   overflow: hidden;
-  /* disable text highlighting */
+
+  /* disable text highlighting, due to accidental click and drag over hidden labels */
   /* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
        -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
+         -o-user-select: none;
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
@@ -35,7 +35,6 @@ h1 {
   text-align: center;
   margin: 0 0 -1rem 0; /* minimize margins, esp @ bottom */ 
 }
-
 h2 {
   color: white;
   font-size: 36px;
@@ -43,23 +42,6 @@ h2 {
   letter-spacing: 1px;
   margin-bottom : 0.75rem;
 }
-
-/* h3 {
-
-} */
-
-/* h4 {
-
-} */
-
-/* h5 {
-
-} */
-
-/* h6 {
-
-} */
-
 p {
   font: normal      /* style */
         small-caps  /* variant */
@@ -72,14 +54,19 @@ p {
 }
 
 /* special text formats + effects */
-.neon {
+.neon { /* used for main page title */
   letter-spacing: 3px;
   text-shadow: -1px   0px  magenta,  /* left */
                 0px   3px  yellow,   /* bottom */
                 1px   0px  magenta,  /* right */
                 0px  -3px  cyan;     /* top */
+  padding: var(--animation-shift) 0 0 0; /* create padding so that animation can land @ target */
+  /* animista: blur-out-expand, slide-top */
+	-webkit-animation: blur-out-expand 1.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) alternate-reverse both,
+                     slide-top 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s both;
+	        animation: blur-out-expand 1.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) alternate-reverse both,
+                     slide-top 1.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s both;
 }
-
 /* .neon:hover {
 
 } */
@@ -92,12 +79,13 @@ p {
 }
 
 .message {
-  margin: 0px auto 0px auto;
+  margin: 0px auto;
+  transform: translateY(var(--animation-unshift));
 }
 
 .fadeIn {
-  -webkit-animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-          animation: fade-in 2.0s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	-webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+          animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
 }
 
 .blink {
@@ -105,39 +93,28 @@ p {
 	        animation: blink-1 1.5s 3 both;
 }
 
-.avoidClicks {
-  pointer-events: none;
-}
-
-/* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
 .containerLid {
+  transform: translateY(var(--animation-unshift));
   width: 735px;
   margin: 90px auto 0 auto;
   display: block;
   border-style: solid;
   border-color: white;
   opacity: 1;
+	/* -webkit-animation: slit-in-vertical 0.5s ease-out 0.25s both;
+          animation: slit-in-vertical 0.5s ease-out 0.25s both; */
 }
 
 /*
- * 6x7 gameboard, 1x7 preview row (in total, 7-row, 7-column grid)
- * Built for 720px width screen in mind, roughly about 900px height.
- * (will make it responsive for 360px + 1080px + 2160px later)
+ * gameboard container:
+ *  - 6x7 gameboard, 1x7 preview row (in total, 7-row, 7-column grid)
+ *  - initially optimized for high resolution screen, w: 800px, h: 960px
+ *  - will be including responsive design for lower resolutions < w: 800px
  */
 .gameContainer {
+  transform: translateY(var(--animation-unshift));
   background-color: transparent;
   display: grid;
-  /* grid-template-columns: repeat(7, 1fr); */
-  /* grid-template-rows: minmax(); */
   grid-template-areas:
     "column1 column2 column3 column4 column5 column6 column7"
     "column1 column2 column3 column4 column5 column6 column7"
@@ -162,46 +139,40 @@ p {
   border-image-slice: 1;
   border-width: 6px;
 }
-
+/* board space, could be either preview or playable */
 .space {
   width: 70px;
   height: 70px;
   background-color: transparent;
   border-radius: 70px;
   border: 5px solid white;
-  /* color: cyan; */
   color: transparent;
   cursor: pointer;
   margin: auto;
 }
-
+/* insert a yellow piece (bounce effect) */
 .space.fillYellow {
-  -webkit-animation: flicker-out-1 3s linear both;
-  animation: flicker-out-1 3s linear both;
-  background-color: yellow;
- 	-webkit-animation: bounce-in-top 1.1s both;
-   animation: bounce-in-top 1.1s both;
+   background-color: yellow;
+ 	-webkit-animation: bounce-in-top 1.0s both;
+          animation: bounce-in-top 1.0s both;
 }
-
+/* insert a magenta piece (bounce effect) */
 .space.fillMagenta {
-	-webkit-animation: flicker-out-1 3s linear both;
-	animation: flicker-out-1 3s linear both;
-	background-color: magenta;
- 	-webkit-animation: bounce-in-top 1.1s both;
- 	animation: bounce-in-top 1.1s both;
+	 background-color: magenta;
+ 	-webkit-animation: bounce-in-top 1.0s both;
+ 	        animation: bounce-in-top 1.0s both;
 }
-
+/* animate winning magenta pieces (blink effect) */
 .space.fillMagenta.winner {
  	-webkit-animation: blink-1 1.5s 3 both;
 	        animation: blink-1 1.5s 3 both;
 }
-
+/* animate winning yellow pieces (blink effect) */
 .space.fillYellow.winner {
  	-webkit-animation: blink-1 1.5s 3 both;
 	        animation: blink-1 1.5s 3 both;
 }
-
-
+/* hidden spaces that appear as player is hovering the board */
 .space.preview {
   border: 5px dashed cyan;
   font-size: 18px;
@@ -209,52 +180,50 @@ p {
   opacity: 0.0;
 }
 
-/**
-  * as a player hovers over each board column, a disc token gradually
-  * appears directly above that same column along the game board... the disc
-  * token's color will depend on who's turn it is
-  */
+/*
+ * as a player hovers over each board column, a game piece appears directly
+ * above that same column along the game board... the game peiece's color will
+ * depend on who's turn it is
+ */
+
+/* while hovering columns as player 2, show pulsating yellow preview above column */
 .space.preview.pulsateYellow {
   border: 5px solid yellow;
   opacity: 1.0;
   /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
   -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition:    all 0.2s ease-in-out;
-  -ms-transition:     all 0.2s ease-in-out;
-  -o-transition:      all 0.2s ease-in-out;
-  transition:         all 0.2s ease-in-out;
+     -moz-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+       -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
   /* .pulsate-bck, w: http://animista.net */
   -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
-  animation: pulsate-bck 1.0s ease-in-out infinite both;
+          animation: pulsate-bck 1.0s ease-in-out infinite both;
 }
 
+/* while hovering columns as player 1, show pulsating magenta preview above column */
 .space.preview.pulsateMagenta {
   border: 5px solid magenta;
   opacity: 1.0;
   /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
   -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition:    all 0.2s ease-in-out;
-  -ms-transition:     all 0.2s ease-in-out;
-  -o-transition:      all 0.2s ease-in-out;
-  transition:         all 0.2s ease-in-out;
+     -moz-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+       -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
   /* .pulsate-bck, w: http://animista.net */
   -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
-  animation: pulsate-bck 1.0s ease-in-out infinite both;
+          animation: pulsate-bck 1.0s ease-in-out infinite both;
 }
 
+/* when round is done, empty board by sliding pieces out thru the bottom */
 .space.clear {
-  /* when board is flipped over, have pieces emptied */
-  -webkit-animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-	        animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	-webkit-animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+          animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
 }
 
-/** 
- * Available fonts via Google:
- *  font-family: 'Amatic SC', cursive;
- *  font-family: 'Monoton', cursive;
- *  font-family: 'VT323', monospace;
- */
 .scoreBoardTitle {
+  transform: translateY(var(--animation-unshift));
   width: 150px;
   margin: -.1em auto 0em auto;
   background: transparent;
@@ -262,10 +231,9 @@ p {
   border-color: white;
   border-width: 0 4px 4px 4px;
   border-radius: 0px;
-
 }
-
 .scoreBoard {
+  transform: translateY(var(--animation-unshift));
   display: grid;
   margin: -35px auto 0 auto;
   /* padding: 0 36px 24px 36px; */
@@ -296,24 +264,36 @@ p {
   font-size: 70px;
   margin: -.4em auto 0 auto;
 }
-
 .score.player2 {
   color: yellow;
   font-size: 70px;
   margin: -.4em auto 0 auto;
 }
-
 .score.ties {
   color: cyan;
   font-size: 36px;
   margin: 0.1em auto 0 auto;
 }
 
+.avoidClicks {
+  pointer-events: none;
+}
 
+/* https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+         -o-user-select: none;
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 
-/* ANIMISTA WEBKIT */
+/* ANIMISTA WEBKIT, w: http://animista.net  */
 
-/* animation pulsate-bck, w: http://animista.net */
+/* animation pulsate-bck */
 @-webkit-keyframes pulsate-bck {
   0% {
     -webkit-transform: scale(1);
@@ -445,229 +425,6 @@ p {
     animation-timing-function: ease-out;
   }
 }
-/* animation flicker-out-1 */
-@-webkit-keyframes flicker-out-1 {
-  0% {
-    opacity: 1;
-  }
-  13.9% {
-    opacity: 1;
-  }
-  14% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  14.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  15% {
-    opacity: 1;
-  }
-  22.9% {
-    opacity: 1;
-  }
-  23% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  24.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  25% {
-    opacity: 1;
-  }
-  34.9% {
-    opacity: 1;
-  }
-  35% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  39.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  40% {
-    opacity: 1;
-  }
-  42.9% {
-    opacity: 1;
-  }
-  43% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  44.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  45% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  54.9% {
-    opacity: 1;
-  }
-  55% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  69.4% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  69.5% {
-    opacity: 1;
-  }
-  69.9% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  79.4% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  79.9% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  89.8% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  89.9% {
-    opacity: 1;
-    box-shadow: none;
-  }
-  90% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes flicker-out-1 {
-  0% {
-    opacity: 1;
-  }
-  13.9% {
-    opacity: 1;
-  }
-  14% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  14.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  15% {
-    opacity: 1;
-  }
-  22.9% {
-    opacity: 1;
-  }
-  23% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  24.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  25% {
-    opacity: 1;
-  }
-  34.9% {
-    opacity: 1;
-  }
-  35% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  39.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  40% {
-    opacity: 1;
-  }
-  42.9% {
-    opacity: 1;
-  }
-  43% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  44.9% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  45% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  54.9% {
-    opacity: 1;
-  }
-  55% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  69.4% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  69.5% {
-    opacity: 1;
-  }
-  69.9% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  79.4% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  79.9% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  89.8% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  89.9% {
-    opacity: 1;
-    box-shadow: none;
-  }
-  90% {
-    opacity: 0;
-    box-shadow: none;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 /* animation fade-in */
 @-webkit-keyframes fade-in {
   0% {
@@ -708,28 +465,101 @@ p {
     opacity: 0;
   }
 }
-/* animation slide-out-top */
-@-webkit-keyframes slide-out-top {
+/**
+ * ----------------------------------------
+ * animation slide-out-blurred-bottom
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-out-blurred-bottom {
   0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+    transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+    filter: blur(0);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translateY(-1000px);
-    transform: translateY(-1000px);
+    -webkit-transform: translateY(1000px) scaleY(2) scaleX(0.2);
+    transform: translateY(1000px) scaleY(2) scaleX(0.2);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
     opacity: 0;
   }
 }
-@keyframes slide-out-top {
+@keyframes slide-out-blurred-bottom {
   0% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+    transform: translateY(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+    filter: blur(0);
     opacity: 1;
   }
   100% {
-    -webkit-transform: translateY(-1000px);
-    transform: translateY(-1000px);
+    -webkit-transform: translateY(1000px) scaleY(2) scaleX(0.2);
+    transform: translateY(1000px) scaleY(2) scaleX(0.2);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-filter: blur(40px);
+    filter: blur(40px);
     opacity: 0;
+  }
+}
+/**
+ * ----------------------------------------
+ * animation slide-top
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(var(--animation-unshift));
+    transform: translateY(var(--animation-unshift));
+
+  }
+}
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-377px);
+    transform: translateY(-377px);
+  }
+}
+/**
+ * ----------------------------------------
+ * animation blur-out-expand
+ * ----------------------------------------
+ */
+@-webkit-keyframes blur-out-expand {
+  0% {
+    -webkit-filter: blur(0.01);
+    filter: blur(0.01);
+  }
+  100% {
+    letter-spacing: 1em;
+    -webkit-filter: blur(12px) opacity(0%);
+    filter: blur(12px) opacity(0%);
+  }
+}
+@keyframes blur-out-expand {
+  0% {
+    -webkit-filter: blur(0.01);
+    filter: blur(0.01);
+  }
+  100% {
+    letter-spacing: 1em;
+    -webkit-filter: blur(12px) opacity(0%);
+    filter: blur(12px) opacity(0%);
   }
 }

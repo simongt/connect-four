@@ -2,13 +2,15 @@
  * next steps: 
  *  implement auto load of next gameround ☑️
  *  have the spaces populate with an entrance effect
- *  implement scoreboard display & update per round 
+ *  implement scoreboard display & update per round ☑️
  *  implement click & hover functionality on preview row
- *  landing page, animate "connect 4" title from center?
+ *  button to restart round
+ *  landing page, animate "connect 4" title from center
  *  implement responsiveness, check on other devices
  *  go thru grading rubric
  *  attempt ai implementation
  *  create presentation slides
+ *  clean up js and css code, comment and remove fluff
  */
 $(function () {
   /*
@@ -37,17 +39,12 @@ $(function () {
     }
   };
 
+  // track number of ties from round to round
+  let ties = 0;
+
   // track the number of turns that have taken place
   let turnCount = 0;
   let whosTurn = turnCount % 2 ? player.two : player.one;
-
-  let ties = 0;
-  // keep a score
-  // const score = {
-  //   player1: 0, // player 1 is magenta
-  //   player2: 0, // player 2 is yellow
-  //   ties: 0
-  // };
 
   // grab the html body
   const $body = $('body');
@@ -57,32 +54,28 @@ $(function () {
   $gameTitle.addClass('neon');
   $gameTitle.html(`Connect 4`);
   $gameTitle.appendTo($body);
-  
+
+
   // insert message below game title
   let $message = $('<p>');
   $message.addClass('message');
   $message.toggleClass('fadeIn');
   $message.html(`${player.one.name}, drop it like it's hot!`);
-  $message.appendTo($body);
 
   // insert make-shift hacky border to top of container
   let $containerLid = $('<div>');
   $containerLid.addClass('containerLid');
-  $containerLid.appendTo($body);
 
   // insert the full board (includes the preview row + visible playable board)
   let $container = $('<div>');
   $container.addClass('gameContainer');
-  $container.appendTo($body);
 
   let $scoreBoardTitle = $('<p>');
   $scoreBoardTitle.addClass('scoreBoardTitle');
   $scoreBoardTitle.html('ScoreBoard');
-  $scoreBoardTitle.appendTo($body);
 
   let $scoreBoard = $('<div>');
   $scoreBoard.addClass('scoreBoard');
-  $scoreBoard.appendTo($body);
 
   let $player1ScoreLabel = $('<div>');
   let $tiesScoreLabel = $('<div>');
@@ -103,14 +96,7 @@ $(function () {
   $player1Score.html(player.one.wins);
   $tiesScore.html(`ties: ${ties}`);
   $player2Score.html(player.two.wins);
-
-  $player1ScoreLabel.appendTo($scoreBoard);
-  $tiesScoreLabel.appendTo($scoreBoard);
-  $player2ScoreLabel.appendTo($scoreBoard);
-  $player1Score.appendTo($scoreBoard);
-  $tiesScore.appendTo($scoreBoard);
-  $player2Score.appendTo($scoreBoard);
-
+  
   let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
   let board = createArray(6, 7);  /*
@@ -198,39 +184,56 @@ $(function () {
     return newArray;
   }
 
-  // fill the board with spaces, fill one preview row above the board
-  for (let i = 0; i < 7; i++) {
-    // fill the preview row with non-playable spaces
-    const $previewSpace = $('<div>');
-    $previewSpace.addClass('space preview');
-    $previewSpace.appendTo($container);
-    previewRow[i] = $previewSpace;
-    // insert a down arrow into each preview space
-    const $downArrow = $('<i>');
-    $downArrow.addClass('fas fa-arrow-down');
-    $downArrow.addClass('icon arrow');
-    $downArrow.appendTo($previewSpace);
+  function populateGameBoard() {
+    // fill the board with spaces, fill one preview row above the board
+    for (let i = 0; i < 7; i++) {
+      // fill the preview row with non-playable spaces
+      const $previewSpace = $('<div>');
+      $previewSpace.addClass('space preview');
+      $previewSpace.appendTo($container);
+      previewRow[i] = $previewSpace;
+      // insert a down arrow into each preview space
+      const $downArrow = $('<i>');
+      $downArrow.addClass('fas fa-arrow-down');
+      $downArrow.addClass('icon arrow');
+      $downArrow.appendTo($previewSpace);
+    }
+    console.table(previewRow);
+    // store board's elements into the multi-dimensional array: board[row][col]
+    for (let i = 0; i < 42; i++) {
+      // fill each column with playable spaces
+      const $space = $('<div>');
+      $space.addClass('space');
+      $space.html(i);
+      $space.appendTo($container);
+      // store each space on the viewable game board into the 2d array
+      let row = Math.floor(i / 7);
+      let col = i % 7;
+      board[row][col] = $space;
+    }
   }
-  console.table(previewRow);
 
-  // store board's elements into the multi-dimensional array: board[row][col]
-  for (let i = 0; i < 42; i++) {
-    // fill each column with playable spaces
-    const $space = $('<div>');
-    $space.addClass('space');
-    $space.html(i);
-    $space.appendTo($container);
-
-    // store each space on the viewable game board into the 2d array
-    let row = Math.floor(i / 7);
-    let col = i % 7;
-    board[row][col] = $space;
-  }
+  // append elements to DOM in sequence
+  setTimeout(() => {
+    $message.appendTo($body); // fade in
+    $containerLid.appendTo($body);
+    $container.appendTo($body);
+    $scoreBoardTitle.appendTo($body);
+    $scoreBoard.appendTo($body);
+    $player1ScoreLabel.appendTo($scoreBoard);
+    $tiesScoreLabel.appendTo($scoreBoard);
+    $player2ScoreLabel.appendTo($scoreBoard);
+    $player1Score.appendTo($scoreBoard);
+    $tiesScore.appendTo($scoreBoard);
+    $player2Score.appendTo($scoreBoard);
+    populateGameBoard();
+    playRound();
+  }, 3500);
 
   let openRow;
   let eventOnClick, eventOnHover;
   let boardPosition;
-  playRound();
+  
   function playRound() {
     // hover-over and on-click functionality for the viewable game board
     // later: implement hover-over and on-click functionality for the preview row
@@ -459,7 +462,7 @@ $(function () {
       $downArrow.addClass('icon arrow');
       $downArrow.appendTo($previewSpace);
     }
-    console.table(previewRow);
+    // console.table(previewRow);
 
     // store board's elements into the multi-dimensional array: board[row][col]
     for (let i = 0; i < 42; i++) {
