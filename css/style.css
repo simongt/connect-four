@@ -79,7 +79,7 @@ p {
 
 /* LANDING DISPLAY */
 
-.titleEntrance {
+.title.enter {
   /* add padding so that animation can land @ target */
   padding: var(--animation-shift) 0 0 0;
   /* blur-out-expand, w: http://animista.net */
@@ -89,13 +89,18 @@ p {
                      neon-glow 4s infinite 2s both;
 }
 
-/* title slides from center page to top center where it'll remain thru game */
-.titleSlideUp { /* animation is not working, not sure why 🧐 */
-  /* add padding so that animation can land @ target */
+/* add padding so that title animation can land @ target */
+.title.slide {
   padding: 0 0 0 0;
-  /* slide-top, w: http://animista.net */
-  -webkit-animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-          animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+/* title slides from center page to top center where it'll remain thru game */
+.title.slide.up {
+  /* adapted from: https://davidwalsh.name/css-slide */
+  max-height: var(--animation-shift); /* approximate max height */
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
 /* start button */

@@ -64,7 +64,7 @@ $(function () {
 
   // insert game title
   let $gameTitle = $('<h1>');
-  $gameTitle.addClass('titleEntrance');
+  $gameTitle.addClass('title enter');
   // $gameTitle.addClass('neon');
 
   $gameTitle.html(`Connect 4`);
@@ -264,9 +264,10 @@ $(function () {
     let clickStart = $startButton.click(function () {
       clickStart.off();
       $startButton.addClass('startClicked'); // not working 🧐
-      $gameTitle.removeClass('titleEntrance');
+      $gameTitle.removeClass('title enter');
       $gameTitle.addClass('neon glow');
-      $gameTitle.addClass('titleSlideUp');
+      $gameTitle.addClass('title slide');
+      $gameTitle.toggleClass('up');
       $startButton.remove();
       // append elements to DOM in sequence
       setTimeout(() => {
