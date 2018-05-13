@@ -96,6 +96,10 @@ $(function () {
   $player1Score.html(player.one.wins);
   $tiesScore.html(`ties: ${ties}`);
   $player2Score.html(player.two.wins);
+
+  let $resetButton = $('<p>');
+  $resetButton.addClass('resetRound');
+  $resetButton.html('Restart Level');
   
   let previewRow = [];
   // an array that contains 6 elements which are also arrays that each contain 7 elements
@@ -213,6 +217,8 @@ $(function () {
     }
   }
 
+
+
   // append elements to DOM in sequence
   setTimeout(() => {
     $message.appendTo($body); // fade in
@@ -226,6 +232,7 @@ $(function () {
     $player1Score.appendTo($scoreBoard);
     $tiesScore.appendTo($scoreBoard);
     $player2Score.appendTo($scoreBoard);
+    $resetButton.appendTo($body);
     populateGameBoard();
     playRound();
   }, 3500);
@@ -235,6 +242,9 @@ $(function () {
   let boardPosition;
   
   function playRound() {
+    let clickRestart = $resetButton.click(function() {
+      clearGameBoard(0);
+    });
     // hover-over and on-click functionality for the viewable game board
     // later: implement hover-over and on-click functionality for the preview row
     board.forEach(row => {
@@ -288,6 +298,7 @@ $(function () {
               $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
               $message.addClass('blink');
               animateWinningConnection();
+              clickRestart.off();
               clearGameBoard(5000);
             }
           }
@@ -304,6 +315,7 @@ $(function () {
             $message.addClass('blink');
             $message.html(`Woah, we have a draw!`);
             ties++;
+            clickRestart.off();
             clearGameBoard(5000);
           }
           console.table(board[openRow][col]);
@@ -391,6 +403,9 @@ $(function () {
     $player1Score.appendTo($scoreBoard);
     $tiesScore.appendTo($scoreBoard);
     $player2Score.appendTo($scoreBoard);
+
+    $resetButton.remove();
+    $resetButton.appendTo($body);
   }
 
   function resetRoundData() {

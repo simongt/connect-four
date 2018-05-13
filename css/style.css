@@ -9,7 +9,7 @@ body, html {
   background: black;
   min-width: 760px;
   /* width: 100%; */
-  min-height: 954px;
+  /* min-height: 954px; */
   /* height: 100%; */
   margin: 0 auto;
   overflow: hidden;
@@ -285,6 +285,19 @@ p {
   margin: 0.1em auto 0 auto;
   -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
 	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+}
+
+.resetRound {
+  transform: translateY(var(--animation-unshift));
+  width: 150px;
+  margin: 0em auto 0em auto;
+  background: transparent;
+  border-style: solid;
+  border-color: white;
+  border-width: 0 4px 4px 4px;
+  border-radius: 0px;
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
 }
 
 .avoidClicks {
