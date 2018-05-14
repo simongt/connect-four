@@ -759,6 +759,7 @@ p {
  *   -- for same browser, except smaller window height
  *   -- for mobile, other browsers with smaller screens
  * weirdly, i'm having setting both a max height + max width on the same query
+ * so i'm using the same code twice for both max height + max width ¯\_(ツ)_/¯
  */
 
 @media (max-height: 800px) {
@@ -766,10 +767,9 @@ p {
     --animation-shift: 280px; /* from 380px */
     --animation-unshift: -280px; /* from -380px */
   }
-
   body,
   html {
-    background: rgb(0, 0, 64); /* blue, responsive level 1 */
+    background: rgb(0, 0, 32); /* blue, responsive level 1 */
   }
   /*
    * raise the landing page
@@ -785,7 +785,7 @@ p {
     font-weight: 900;
     font-size: 60px; /* from 84px */
     letter-spacing: 4px;
-    color: rgb(0, 0, 64); /* from black */
+    color: rgb(0, 0, 32); /* from black */
     text-align: center;
     margin: 0 0 -1rem 0; /* minimize margins all around, more so @ bottom */
   }
@@ -1158,7 +1158,7 @@ p {
 @media (max-width: 616px) {
   body,
   html {
-    background: rgb(0, 0, 64);
+    background: rgb(0, 0, 32);
   }
   /* raise the landing page */
   /* shrink the title, game board, game pieces & scoreboard */
@@ -1166,7 +1166,7 @@ p {
 @media (max-height: 640px) {
   body,
   html {
-    background: rgb(64, 0, 64);
+    background: rgb(32, 0, 32);
   }
   /* raise the landing page */
 
@@ -1176,7 +1176,7 @@ p {
 @media (max-width: 493px) {
   body,
   html {
-    background: rgb(64, 0, 64);
+    background: rgb(32, 0, 32);
 
   }
   /* raise the landing page */
@@ -1186,7 +1186,7 @@ p {
 @media (max-height: 480px) {
   body,
   html {
-    background: rgb(64, 0, 0);
+    background: rgb(32, 0, 0);
   }
 
   /* raise the landing page */
@@ -1198,7 +1198,7 @@ p {
 @media (max-width: 370px) {
   body,
   html {
-    background: rgb(64, 0, 0);
+    background: rgb(32, 0, 0);
   }
 
   /* raise the landing page */
