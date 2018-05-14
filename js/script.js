@@ -138,8 +138,8 @@ $(function () {
   // $closeModal.html(`X`);
   // $closeModal.addClass('closeButton');
 
-  // sound clips
-  let dilih = $('.dilih')[0];
+  // sound clips (D.I.L.I.H.)
+  let dilih = $('audio')[0]; // how to DOM manip w/o HTML? 🧐
 
   // an array that contains 6 elements that represent a single row to preview the move above the playable gameboard
   let previewRow = [];
