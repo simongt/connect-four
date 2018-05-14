@@ -3,7 +3,7 @@ Live: https://pages.git.generalassemb.ly/simon/project-1-connect-4/
 # project-1-connect-4
 Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping colored discs from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the next available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs. [Paraphrased from Wikipedia]
 
-![Landing View vs Game View](http://dropitlikeitshot.bitballoon.com/images/landing-view-and-game-view.jpg)
+![Landing View vs Game View](/images/landing-view-and-game-view.jpg)
 
 ## Transition: Landing View → Game View
 The CONNECT 4 title enters the page by a sliding animation to center page, then a start button fades in directly below. The start button must be clicked in order to access the game view. Once clicked, the button disappears and the title slides up. A game board appears.
