@@ -265,7 +265,6 @@ $(function () {
     }, 1000);
     let clickStart = $startButton.click(function () {
       clickStart.off();
-      $startButton.addClass('startClicked'); // not working 🧐
       $gameTitle.removeClass('title enter');
       $gameTitle.addClass('neon glow');
       $gameTitle.addClass('title slide');
