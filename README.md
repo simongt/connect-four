@@ -37,7 +37,7 @@ My understanding of CSS + JavaScript is still quite fresh. Many times, there are
  * improve win or tie declaration, animate a modal pop-up
  * toggle starting player and color per round
  * restructure scoring system
- -- add bonus for connections of more than 4
- -- add bonus for amount of remaining pieces post-win
+ * - add bonus for connections of more than 4
+ * - add bonus for amount of remaining pieces post-win
  * add more sound effects
  * eventually add network functionality to play 1-1 remotely
