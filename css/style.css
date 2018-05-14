@@ -827,9 +827,9 @@ p {
     padding: var(--animation-shift) 0 0 0;
     /* slide-in-blurred-top, w: http://animista.net */
     -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
-                      neon-glow 4s infinite 1s both;
+                       neon-glow 4s infinite 1s both;
             animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
-                      neon-glow 4s infinite 1s both;
+                       neon-glow 4s infinite 1s both;
   }
 
   /* add padding so that title animation can land @ target */
@@ -886,7 +886,7 @@ p {
   .message {
     margin: 2px auto; /* from 0 auto */
     /* transform: translateY(var(--animation-unshift)); */
-  }/
+  }
 
   /* slow fade in animation after 1 sec delay */
   .fadeIn {
@@ -1222,9 +1222,9 @@ p {
     padding: var(--animation-shift) 0 0 0;
     /* slide-in-blurred-top, w: http://animista.net */
     -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
-                      neon-glow 4s infinite 1s both;
+                       neon-glow 4s infinite 1s both;
             animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
-                      neon-glow 4s infinite 1s both;
+                       neon-glow 4s infinite 1s both;
   }
 
   /* add padding so that title animation can land @ target */
@@ -1281,7 +1281,7 @@ p {
   .message {
     margin: 2px auto; /* from 0 auto */
     /* transform: translateY(var(--animation-unshift)); */
-  }/
+  }
 
   /* slow fade in animation after 1 sec delay */
   .fadeIn {
@@ -1545,6 +1545,1192 @@ p {
     border-style: solid;
     border-color: white;
     border-width: 0 4px 4px 4px;
+    border-radius: 0px;
+    cursor: pointer;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+  }
+} /* anything less than 759px in width */
+@media (max-width: 759px) {
+  :root {
+    --animation-shift: 280px; /* from 380px */
+    --animation-unshift: -280px; /* from -380px */
+  }
+  body,
+  html {
+    background: rgb(0, 0, 32); /* blue, responsive level 1 */
+    width: 580px; /* from 760px */
+    height: 780px; /* from 987px */
+  }
+  /*
+   * raise the landing page
+   * shrink the title
+   * shrink the game board game pieces
+   * shrink the scoreboard
+   */
+
+  /* TEXT FORMAT DEFAULTS */
+
+  h1 {
+    font-family: 'Monoton', cursive;
+    font-weight: 900;
+    font-size: 60px; /* from 84px */
+    letter-spacing: 4px;
+    color: rgb(0, 0, 32); /* from black */
+    text-align: center;
+    margin: 0 0 -1rem 0; /* minimize margins all around, more so @ bottom */
+  }
+
+  p {
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          22px/normal /* size/height */ /* from 24px/normal */
+          'Alegreya Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* SPECIAL TEXT EFFECTS */
+
+  /* use neon shadows for main page title */
+  .neon {
+    text-shadow: -1px   0px  magenta,  /* left */
+                  0px   3px  yellow,   /* bottom */
+                  1px   0px  magenta,  /* right */
+                  0px  -3px  cyan;     /* top */
+  }
+
+  /* my first attempt at creating a css animation: neon-glow 👀😅 */
+  .neon.glow {
+    -webkit-animation: neon-glow 10s infinite both;
+            animation: neon-glow 10s infinite both;
+  }
+
+  /* LANDING DISPLAY */
+
+  .title.enter {
+    /* add padding so that animation can land @ target */
+    padding: var(--animation-shift) 0 0 0;
+    /* slide-in-blurred-top, w: http://animista.net */
+    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                       neon-glow 4s infinite 1s both;
+            animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                       neon-glow 4s infinite 1s both;
+  }
+
+  /* add padding so that title animation can land @ target */
+  .title.slide {
+    padding: 0 0 0 0;
+  }
+
+  /* title slides from center page to top center where it'll remain thru game */
+  .title.slide.up {
+    /* adapted from: https://davidwalsh.name/css-slide */
+    max-height: var(--animation-shift); /* approximate max height */
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  /* start button */
+  .start {
+    width: 50px; /* from 60px */
+    margin: 10px auto; /* from 15px auto */
+    padding: auto;
+    background: transparent;
+    border-style: solid;
+    border-color: cyan;
+    border-width: 2px;
+    border-radius: 8px; /* from 10px */
+    cursor: pointer;
+    /* fade-in */
+    -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  }
+
+  /* yellow on hover */
+  .start:hover {
+    color: yellow;
+  }
+
+  /* magenta on click */
+  .start:active {
+    color: magenta;
+  }
+
+  /* styling for icons that may be placed at the center of pieces */
+  .icon {
+    margin: 40%; /* center at origin */
+  }
+
+  /* down arrow icon for preview above game board */
+  .icon.arrow {
+    color: cyan;
+  }
+
+  /* text block for displaying messages and status of game */
+  .message {
+    margin: 2px auto; /* from 0 auto */
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /* slow fade in animation after 1 sec delay */
+  .fadeIn {
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+            animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+  }
+
+  /* slow blink, repeat 3 times */
+  .blink {
+    /* blink-1, w: http://animista.net */
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+
+  /* slide in from top, start blurry and end unblurred */
+  .slide-in-blurred-top {
+    /* slide-in-blurred-top, w: http://animista.net */
+    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+            animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+  }
+  /*
+  * since the preview row is a part of the game container, setting a border at 
+  * the top would look akward with all the extra space, therefore i used a hacky
+  * make shift border.
+  */
+  .containerLid {
+    width: 570px; /* from 735px */
+    margin: 75px auto 0 auto; /* from 90px auto 0 auto */
+    display: block;
+    border-style: solid;
+    border-color: white;
+    opacity: 1;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /*
+  * the gameboard container is setup with 7 columns:
+  * grid-template-areas: "column1 column2 column3 column4 column5 column6 column7"
+  * 
+  * interestingly, this part can be omitted without affecting the grid 🧐
+  */
+  .column1 { grid-area: column1; }
+  .column2 { grid-area: column2; }
+  .column3 { grid-area: column3; }
+  .column4 { grid-area: column4; }
+  .column5 { grid-area: column5; }
+  .column6 { grid-area: column6; }
+  .column7 { grid-area: column7; }
+
+  /*
+  * gameboard container:
+  *  - 6x7 gameboard, 1x7 preview row (in total, 7-row, 7-column grid)
+  *  - initially optimized for high resolution screen, w: 800px, h: 960px
+  *  - will be including responsive design for lower resolutions < w: 800px
+  */
+  .gameContainer {
+    background-color: transparent;
+    display: grid;
+    grid-template-areas:
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7";
+    grid-gap: 5px;
+    width: 550px; /* from 720px */
+    height: 550px; /* from 720px */
+    margin: -89px auto auto auto; /* -115px auto auto auto */
+    padding: 8px 8px 8px 8px; /* from 10px 10px 10px 10px */
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          45px/normal /* size/height */ /* from 55px */
+          'Alegreya Sans SC', sans-serif;
+    color: rgba(255,255,255,0.25);
+    text-align: center; /* how to vertically align w/o affecting div structure? */
+    border-style: dashed;
+    border-image: linear-gradient(to top, white 0%, white 86%, transparent 86%, transparent 100%);
+    border-image-slice: 1;
+    border-width: 5px; /* from 6px */
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /* board space, could be either preview or playable */
+  .space {
+    width: 60px; /* from 70px */
+    height: 60px; /* from 70px */
+    background-color: transparent;
+    border-radius: 60px; /* from 70px */
+    border: 4px solid white; /* from 5px solid white */
+    color: transparent; /* from transparent */
+    cursor: pointer;
+    margin: auto;
+  }
+  /* insert a yellow piece (bounce effect) */
+  .space.fillYellow {
+    background-color: yellow;
+    /* bounce-in-top, w: http://animista.net */
+    -webkit-animation: bounce-in-top 1.0s both;
+            animation: bounce-in-top 1.0s both;
+  }
+  /* insert a magenta piece (bounce effect) */
+  .space.fillMagenta {
+    background-color: magenta;
+    /* bounce-in-top */
+    -webkit-animation: bounce-in-top 1.0s both;
+            animation: bounce-in-top 1.0s both;
+  }
+  /* animate winning magenta pieces (blink effect) */
+  .space.fillMagenta.winner {
+    /* blink-1, w: http://animista.net */
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+  /* animate winning yellow pieces (blink effect) */
+  .space.fillYellow.winner {
+    /* blink-1, w: http://animista.net */ 
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+  /* hidden spaces that appear as player is hovering the board */
+  .space.preview {
+    border: 5px dashed cyan; /* from 5px dashed cyan */
+    margin: -6px 0 12px 0; /* from auto */
+    font-size: 15px; /* from 18px */
+    text-align: center; /* how do I vertically align w/o affecting div structure? */ 
+    opacity: 0.0;
+  }
+
+  /*
+  * as a player hovers over each board column, a game piece appears directly
+  * above that same column along the game board... the game peiece's color will
+  * depend on who's turn it is
+  */
+
+  /* while hovering columns as player 2, show pulsating yellow preview above column */
+  .space.preview.pulsateYellow {
+    border: 5px solid yellow;
+    opacity: 1.0;
+    /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+    -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+    /* pulsate-bck, w: http://animista.net */
+    -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+            animation: pulsate-bck 1.0s ease-in-out infinite both;
+  }
+
+  /* while hovering columns as player 1, show pulsating magenta preview above column */
+  .space.preview.pulsateMagenta {
+    border: 5px solid magenta;
+    opacity: 1.0;
+    /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+    -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+    /* pulsate-bck, w: http://animista.net */
+    -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+            animation: pulsate-bck 1.0s ease-in-out infinite both;
+  }
+
+  /* when round is done, empty board by sliding pieces out thru the bottom */
+  .space.clear {
+    /* slide-out-blurred-bottom, w: http://animista.net */
+    -webkit-animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+            animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+  }
+
+  /* SCORE BOARD FORMATTING & EFFECTS */
+
+  .scoreBoardTitle {
+    /* transform: translateY(var(--animation-unshift)); */
+    width: 150px; /* from 150px */
+    margin: -.1em auto 0em auto; /* from -.1em auto 0em auto */
+    background: transparent;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 4px 4px 4px; /* from 0 4px 4px 4px */
+    border-radius: 0px;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+  }
+
+  .scoreBoard {
+    /* transform: translateY(var(--animation-unshift)); */
+    display: grid;
+    margin: -35px auto 0 auto; /* from -35px auto 0 auto */
+    /* padding: 0 36px 24px 36px; */
+    width: 566px; /* from 740px */
+    height: 75px;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 0px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 5px 5px 5px; /* from 0 6px 6px 6px */
+    border-radius: 0px;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+  }
+
+  .score {
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          20px/normal /* size/height */
+          'Alegreya Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    width: 100%;
+    margin: 0.3em auto 0 auto; /* from 0.2em auto 0 auto */
+  }
+
+  .score.player1 {
+    color: magenta;
+    font-size: 70px;
+    margin: -.4em auto 0 auto;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+  }
+
+  .score.player2 {
+    color: yellow;
+    font-size: 70px;
+    margin: -.4em auto 0 auto;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+  }
+
+  .score.ties {
+    color: cyan;
+    font-size: 36px;
+    margin: 0em auto 0 auto; /* from 0.1em auto 0 auto */
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+  }
+
+  .resetRound {
+    /* transform: translateY(var(--animation-unshift)); */
+    width: 150px;
+    margin: 0em auto 0em auto;
+    background: transparent;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 4px 4px 4px;
+    border-radius: 0px;
+    cursor: pointer;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+  }
+}
+/* anything greater than 360x640px */
+@media (max-width: 579px) {
+  :root {
+    --animation-shift: 255px; /* from 380px */
+    --animation-unshift: -255px; /* from -380px */
+  }
+  body, html {
+    background: rgb(32, 0, 32); /* purple, lowest responsive level */
+    width: 360px; /* from 760px */
+    height: 640px; /* from 987px */
+  }
+  /*
+   * raise the landing page
+   * shrink the title
+   * shrink the game board game pieces
+   * shrink the scoreboard
+   */
+
+  /* TEXT FORMAT DEFAULTS */
+
+  h1 {
+    font-family: 'Monoton', cursive;
+    font-weight: 900;
+    font-size: 40px; /* from 84px */
+    letter-spacing: 4px;
+    color: rgb(32, 0, 32); /* from black */
+    text-align: center;
+    margin: 0 0 -1rem 0; /* minimize margins all around, more so @ bottom */
+  }
+
+  p {
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          16px/normal /* size/height */ /* from 24px/normal */
+          'Alegreya Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* SPECIAL TEXT EFFECTS */
+
+  /* use neon shadows for main page title */
+  .neon {
+    text-shadow: -1px   0px  magenta,  /* left */
+                  0px   3px  yellow,   /* bottom */
+                  1px   0px  magenta,  /* right */
+                  0px  -3px  cyan;     /* top */
+  }
+
+  /* my first attempt at creating a css animation: neon-glow 👀😅 */
+  .neon.glow {
+    -webkit-animation: neon-glow 10s infinite both;
+            animation: neon-glow 10s infinite both;
+  }
+
+  /* LANDING DISPLAY */
+
+  .title.enter {
+    /* add padding so that animation can land @ target */
+    padding: var(--animation-shift) 0 0 0;
+    /* slide-in-blurred-top, w: http://animista.net */
+    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                       neon-glow 4s infinite 1s both;
+            animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                       neon-glow 4s infinite 1s both;
+  }
+
+  /* add padding so that title animation can land @ target */
+  .title.slide {
+    padding: 0 0 0 0;
+  }
+
+  /* title slides from center page to top center where it'll remain thru game */
+  .title.slide.up {
+    /* adapted from: https://davidwalsh.name/css-slide */
+    max-height: var(--animation-shift); /* approximate max height */
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  /* start button */
+  .start {
+    width: 45px; /* from 60px */
+    margin: 15px auto; /* from 15px auto */
+    padding: auto;
+    background: transparent;
+    border-style: solid;
+    border-color: cyan;
+    border-width: 1.5px; /* from 2px */
+    border-radius: 6px; /* from 10px */
+    cursor: pointer;
+    /* fade-in */
+    -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  }
+
+  /* yellow on hover */
+  .start:hover {
+    color: yellow;
+  }
+
+  /* magenta on click */
+  .start:active {
+    color: magenta;
+  }
+
+  /* styling for icons that may be placed at the center of pieces */
+  .icon {
+    margin: 40%; /* center at origin */
+  }
+
+  /* down arrow icon for preview above game board */
+  .icon.arrow {
+    color: cyan;
+  }
+
+  /* text block for displaying messages and status of game */
+  .message {
+    margin: 10px auto; /* from 0 auto */
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /* slow fade in animation after 1 sec delay */
+  .fadeIn {
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+            animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+  }
+
+  /* slow blink, repeat 3 times */
+  .blink {
+    /* blink-1, w: http://animista.net */
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+
+  /* slide in from top, start blurry and end unblurred */
+  .slide-in-blurred-top {
+    /* slide-in-blurred-top, w: http://animista.net */
+    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+            animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+  }
+  /*
+  * since the preview row is a part of the game container, setting a border at 
+  * the top would look akward with all the extra space, therefore i used a hacky
+  * make shift border.
+  */
+  .containerLid {
+    width: 349px; /* from 735px */
+    margin: 75px auto 0 auto; /* from 90px auto 0 auto */
+    display: block;
+    border-style: solid;
+    border-color: white;
+    border-width: 1.5px;
+    opacity: 1;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /*
+  * the gameboard container is setup with 7 columns:
+  * grid-template-areas: "column1 column2 column3 column4 column5 column6 column7"
+  * 
+  * interestingly, this part can be omitted without affecting the grid 🧐
+  */
+  .column1 { grid-area: column1; }
+  .column2 { grid-area: column2; }
+  .column3 { grid-area: column3; }
+  .column4 { grid-area: column4; }
+  .column5 { grid-area: column5; }
+  .column6 { grid-area: column6; }
+  .column7 { grid-area: column7; }
+
+  /*
+  * gameboard container:
+  *  - 6x7 gameboard, 1x7 preview row (in total, 7-row, 7-column grid)
+  *  - initially optimized for high resolution screen, w: 800px, h: 960px
+  *  - will be including responsive design for lower resolutions < w: 800px
+  */
+  .gameContainer {
+    background-color: transparent;
+    display: grid;
+    grid-template-areas:
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7";
+    grid-gap: 3px;
+    width: 330px; /* from 720px */
+    height: 330px; /* from 720px */
+    margin: -62px auto auto auto; /* -115px auto auto auto */
+    padding: 8px 8px 8px 8px; /* from 10px 10px 10px 10px */
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          45px/normal /* size/height */ /* from 55px */
+          'Alegreya Sans SC', sans-serif;
+    color: rgba(255,255,255,0.25);
+    text-align: center; /* how to vertically align w/o affecting div structure? */
+    border-style: dashed;
+    /* from linear-gradient(to top, white 0%, white 86%, transparent 86%, transparent 100%); */
+    border-image: linear-gradient(to top, white 0%, white 83%, transparent 83%, transparent 100%);
+    border-image-slice: 1;
+    border-width: 3px; /* from 6px */
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /* board space, could be either preview or playable */
+  .space {
+    width: 35px; /* from 70px */
+    height: 35px; /* from 70px */
+    background-color: transparent;
+    border-radius: 35px; /* from 70px */
+    border: 2px solid white; /* from 5px solid white */
+    color: transparent; /* from transparent */
+    cursor: pointer;
+    margin: auto;
+  }
+  /* insert a yellow piece (bounce effect) */
+  .space.fillYellow {
+    background-color: yellow;
+    /* bounce-in-top, w: http://animista.net */
+    -webkit-animation: bounce-in-top 1.0s both;
+            animation: bounce-in-top 1.0s both;
+  }
+  /* insert a magenta piece (bounce effect) */
+  .space.fillMagenta {
+    background-color: magenta;
+    /* bounce-in-top */
+    -webkit-animation: bounce-in-top 1.0s both;
+            animation: bounce-in-top 1.0s both;
+  }
+  /* animate winning magenta pieces (blink effect) */
+  .space.fillMagenta.winner {
+    /* blink-1, w: http://animista.net */
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+  /* animate winning yellow pieces (blink effect) */
+  .space.fillYellow.winner {
+    /* blink-1, w: http://animista.net */ 
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+  /* hidden spaces that appear as player is hovering the board */
+  .space.preview {
+    border: 5px dashed cyan; /* from 5px dashed cyan */
+    margin: -6px 0 12px 0; /* from auto */
+    font-size: 8px; /* from 18px */
+    text-align: center; /* how do I vertically align w/o affecting div structure? */ 
+    opacity: 0.0;
+  }
+
+  /*
+   * as a player hovers over each board column, a game piece appears directly
+   * above that same column along the game board... the game peiece's color will
+   * depend on who's turn it is
+   */
+
+  /* while hovering columns as player 2, show pulsating yellow preview above column */
+  .space.preview.pulsateYellow {
+    border: 3px solid yellow; /* 5px solid yellow */
+    opacity: 1.0;
+    /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+    /* pulsate-bck, w: http://animista.net */
+    -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+            animation: pulsate-bck 1.0s ease-in-out infinite both;
+  }
+
+  /* while hovering columns as player 1, show pulsating magenta preview above column */
+  .space.preview.pulsateMagenta {
+    border: 3px solid magenta; /* 5px solid magenta */
+    opacity: 1.0;
+    /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+    /* pulsate-bck, w: http://animista.net */
+    -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+            animation: pulsate-bck 1.0s ease-in-out infinite both;
+  }
+
+  /* when round is done, empty board by sliding pieces out thru the bottom */
+  .space.clear {
+    /* slide-out-blurred-bottom, w: http://animista.net */
+    -webkit-animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+            animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+  }
+
+  /* SCORE BOARD FORMATTING & EFFECTS */
+
+  .scoreBoardTitle {
+    /* transform: translateY(var(--animation-unshift)); */
+    width: 150px; /* from 150px */
+    margin: -.1em auto 0em auto; /* from -.1em auto 0em auto */
+    background: transparent;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 2px; /* from 0 4px 4px 4px */
+    border-radius: 0px;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+  }
+
+  .scoreBoard {
+    /* transform: translateY(var(--animation-unshift)); */
+    display: grid;
+    margin: -35px auto 0 auto; /* from -35px auto 0 auto */
+    /* padding: 0 36px 24px 36px; */
+    width: 346px; /* from 740px */
+    height: 75px;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 0px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 3px 3px 3px; /* from 0 6px 6px 6px */
+    border-radius: 0px;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+  }
+
+  .score {
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          16px/normal /* size/height */ /* from 24px */
+          'Alegreya Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    width: 100%;
+    margin: 1em auto 0 auto; /* from 0.2em auto 0 auto */
+  }
+
+  .score.player1 {
+    color: magenta;
+    font-size: 60px; /* from 70px */
+    margin: -.4em auto 0 auto;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+  }
+
+  .score.player2 {
+    color: yellow;
+    font-size: 60px; /* from 70px */
+    margin: -.4em auto 0 auto;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+  }
+
+  .score.ties {
+    color: cyan;
+    font-size: 36px;
+    margin: -.15em auto 0 auto; /* from 0.1em auto 0 auto */
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+  }
+
+  .resetRound {
+    /* transform: translateY(var(--animation-unshift)); */
+    width: 150px;
+    margin: 0em auto 0em auto;
+    background: transparent;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 2px; /* from 0 4px 4px 4px */
+    border-radius: 0px;
+    cursor: pointer;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2.5s both;
+  }
+}
+/* anything greater than 360x640px */
+@media (max-height: 779px) {
+  :root {
+    --animation-shift: 255px; /* from 380px */
+    --animation-unshift: -255px; /* from -380px */
+  }
+  body, html {
+    background: rgb(32, 0, 32); /* purple, lowest responsive level */
+    width: 360px; /* from 760px */
+    height: 640px; /* from 987px */
+  }
+  /*
+   * raise the landing page
+   * shrink the title
+   * shrink the game board game pieces
+   * shrink the scoreboard
+   */
+
+  /* TEXT FORMAT DEFAULTS */
+
+  h1 {
+    font-family: 'Monoton', cursive;
+    font-weight: 900;
+    font-size: 40px; /* from 84px */
+    letter-spacing: 4px;
+    color: rgb(32, 0, 32); /* from black */
+    text-align: center;
+    margin: 0 0 -1rem 0; /* minimize margins all around, more so @ bottom */
+  }
+
+  p {
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          16px/normal /* size/height */ /* from 24px/normal */
+          'Alegreya Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* SPECIAL TEXT EFFECTS */
+
+  /* use neon shadows for main page title */
+  .neon {
+    text-shadow: -1px   0px  magenta,  /* left */
+                  0px   3px  yellow,   /* bottom */
+                  1px   0px  magenta,  /* right */
+                  0px  -3px  cyan;     /* top */
+  }
+
+  /* my first attempt at creating a css animation: neon-glow 👀😅 */
+  .neon.glow {
+    -webkit-animation: neon-glow 10s infinite both;
+            animation: neon-glow 10s infinite both;
+  }
+
+  /* LANDING DISPLAY */
+
+  .title.enter {
+    /* add padding so that animation can land @ target */
+    padding: var(--animation-shift) 0 0 0;
+    /* slide-in-blurred-top, w: http://animista.net */
+    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                       neon-glow 4s infinite 1s both;
+            animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both,
+                       neon-glow 4s infinite 1s both;
+  }
+
+  /* add padding so that title animation can land @ target */
+  .title.slide {
+    padding: 0 0 0 0;
+  }
+
+  /* title slides from center page to top center where it'll remain thru game */
+  .title.slide.up {
+    /* adapted from: https://davidwalsh.name/css-slide */
+    max-height: var(--animation-shift); /* approximate max height */
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  /* start button */
+  .start {
+    width: 45px; /* from 60px */
+    margin: 15px auto; /* from 15px auto */
+    padding: auto;
+    background: transparent;
+    border-style: solid;
+    border-color: cyan;
+    border-width: 1.5px; /* from 2px */
+    border-radius: 6px; /* from 10px */
+    cursor: pointer;
+    /* fade-in */
+    -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  }
+
+  /* yellow on hover */
+  .start:hover {
+    color: yellow;
+  }
+
+  /* magenta on click */
+  .start:active {
+    color: magenta;
+  }
+
+  /* styling for icons that may be placed at the center of pieces */
+  .icon {
+    margin: 40%; /* center at origin */
+  }
+
+  /* down arrow icon for preview above game board */
+  .icon.arrow {
+    color: cyan;
+  }
+
+  /* text block for displaying messages and status of game */
+  .message {
+    margin: 10px auto; /* from 0 auto */
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /* slow fade in animation after 1 sec delay */
+  .fadeIn {
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+            animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+  }
+
+  /* slow blink, repeat 3 times */
+  .blink {
+    /* blink-1, w: http://animista.net */
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+
+  /* slide in from top, start blurry and end unblurred */
+  .slide-in-blurred-top {
+    /* slide-in-blurred-top, w: http://animista.net */
+    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+            animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+  }
+  /*
+  * since the preview row is a part of the game container, setting a border at 
+  * the top would look akward with all the extra space, therefore i used a hacky
+  * make shift border.
+  */
+  .containerLid {
+    width: 349px; /* from 735px */
+    margin: 75px auto 0 auto; /* from 90px auto 0 auto */
+    display: block;
+    border-style: solid;
+    border-color: white;
+    border-width: 1.5px;
+    opacity: 1;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /*
+  * the gameboard container is setup with 7 columns:
+  * grid-template-areas: "column1 column2 column3 column4 column5 column6 column7"
+  * 
+  * interestingly, this part can be omitted without affecting the grid 🧐
+  */
+  .column1 { grid-area: column1; }
+  .column2 { grid-area: column2; }
+  .column3 { grid-area: column3; }
+  .column4 { grid-area: column4; }
+  .column5 { grid-area: column5; }
+  .column6 { grid-area: column6; }
+  .column7 { grid-area: column7; }
+
+  /*
+  * gameboard container:
+  *  - 6x7 gameboard, 1x7 preview row (in total, 7-row, 7-column grid)
+  *  - initially optimized for high resolution screen, w: 800px, h: 960px
+  *  - will be including responsive design for lower resolutions < w: 800px
+  */
+  .gameContainer {
+    background-color: transparent;
+    display: grid;
+    grid-template-areas:
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7"
+      "column1 column2 column3 column4 column5 column6 column7";
+    grid-gap: 3px;
+    width: 330px; /* from 720px */
+    height: 330px; /* from 720px */
+    margin: -62px auto auto auto; /* -115px auto auto auto */
+    padding: 8px 8px 8px 8px; /* from 10px 10px 10px 10px */
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          45px/normal /* size/height */ /* from 55px */
+          'Alegreya Sans SC', sans-serif;
+    color: rgba(255,255,255,0.25);
+    text-align: center; /* how to vertically align w/o affecting div structure? */
+    border-style: dashed;
+    /* from linear-gradient(to top, white 0%, white 86%, transparent 86%, transparent 100%); */
+    border-image: linear-gradient(to top, white 0%, white 83%, transparent 83%, transparent 100%);
+    border-image-slice: 1;
+    border-width: 3px; /* from 6px */
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    /* transform: translateY(var(--animation-unshift)); */
+  }
+
+  /* board space, could be either preview or playable */
+  .space {
+    width: 35px; /* from 70px */
+    height: 35px; /* from 70px */
+    background-color: transparent;
+    border-radius: 35px; /* from 70px */
+    border: 2px solid white; /* from 5px solid white */
+    color: transparent; /* from transparent */
+    cursor: pointer;
+    margin: auto;
+  }
+  /* insert a yellow piece (bounce effect) */
+  .space.fillYellow {
+    background-color: yellow;
+    /* bounce-in-top, w: http://animista.net */
+    -webkit-animation: bounce-in-top 1.0s both;
+            animation: bounce-in-top 1.0s both;
+  }
+  /* insert a magenta piece (bounce effect) */
+  .space.fillMagenta {
+    background-color: magenta;
+    /* bounce-in-top */
+    -webkit-animation: bounce-in-top 1.0s both;
+            animation: bounce-in-top 1.0s both;
+  }
+  /* animate winning magenta pieces (blink effect) */
+  .space.fillMagenta.winner {
+    /* blink-1, w: http://animista.net */
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+  /* animate winning yellow pieces (blink effect) */
+  .space.fillYellow.winner {
+    /* blink-1, w: http://animista.net */ 
+    -webkit-animation: blink-1 1.5s 3 both;
+            animation: blink-1 1.5s 3 both;
+  }
+  /* hidden spaces that appear as player is hovering the board */
+  .space.preview {
+    border: 5px dashed cyan; /* from 5px dashed cyan */
+    margin: -6px 0 12px 0; /* from auto */
+    font-size: 8px; /* from 18px */
+    text-align: center; /* how do I vertically align w/o affecting div structure? */ 
+    opacity: 0.0;
+  }
+
+  /*
+   * as a player hovers over each board column, a game piece appears directly
+   * above that same column along the game board... the game peiece's color will
+   * depend on who's turn it is
+   */
+
+  /* while hovering columns as player 2, show pulsating yellow preview above column */
+  .space.preview.pulsateYellow {
+    border: 3px solid yellow; /* 5px solid yellow */
+    opacity: 1.0;
+    /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+    /* pulsate-bck, w: http://animista.net */
+    -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+            animation: pulsate-bck 1.0s ease-in-out infinite both;
+  }
+
+  /* while hovering columns as player 1, show pulsating magenta preview above column */
+  .space.preview.pulsateMagenta {
+    border: 3px solid magenta; /* 5px solid magenta */
+    opacity: 1.0;
+    /* https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a */
+    -webkit-transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+    /* pulsate-bck, w: http://animista.net */
+    -webkit-animation: pulsate-bck 1.0s ease-in-out infinite both;
+            animation: pulsate-bck 1.0s ease-in-out infinite both;
+  }
+
+  /* when round is done, empty board by sliding pieces out thru the bottom */
+  .space.clear {
+    /* slide-out-blurred-bottom, w: http://animista.net */
+    -webkit-animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+            animation: slide-out-blurred-bottom 0.45s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+  }
+
+  /* SCORE BOARD FORMATTING & EFFECTS */
+
+  .scoreBoardTitle {
+    /* transform: translateY(var(--animation-unshift)); */
+    width: 150px; /* from 150px */
+    margin: -.1em auto 0em auto; /* from -.1em auto 0em auto */
+    background: transparent;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 2px; /* from 0 4px 4px 4px */
+    border-radius: 0px;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1s both;
+  }
+
+  .scoreBoard {
+    /* transform: translateY(var(--animation-unshift)); */
+    display: grid;
+    margin: -35px auto 0 auto; /* from -35px auto 0 auto */
+    /* padding: 0 36px 24px 36px; */
+    width: 346px; /* from 740px */
+    height: 75px;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 0px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 3px 3px 3px; /* from 0 6px 6px 6px */
+    border-radius: 0px;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.5s both;
+  }
+
+  .score {
+    font: normal      /* style */
+          small-caps  /* variant */
+          100         /* weight */
+          16px/normal /* size/height */ /* from 24px */
+          'Alegreya Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    width: 100%;
+    margin: 1em auto 0 auto; /* from 0.2em auto 0 auto */
+  }
+
+  .score.player1 {
+    color: magenta;
+    font-size: 60px; /* from 70px */
+    margin: -.4em auto 0 auto;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+  }
+
+  .score.player2 {
+    color: yellow;
+    font-size: 60px; /* from 70px */
+    margin: -.4em auto 0 auto;
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 2s both;
+  }
+
+  .score.ties {
+    color: cyan;
+    font-size: 36px;
+    margin: -.15em auto 0 auto; /* from 0.1em auto 0 auto */
+    /* fade-in, w: http://animista.net */
+    -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+            animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) 1.5s both;
+  }
+
+  .resetRound {
+    /* transform: translateY(var(--animation-unshift)); */
+    width: 150px;
+    margin: 0em auto 0em auto;
+    background: transparent;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 2px; /* from 0 4px 4px 4px */
     border-radius: 0px;
     cursor: pointer;
     /* fade-in, w: http://animista.net */
