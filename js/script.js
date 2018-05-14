@@ -27,7 +27,7 @@
  * - restructure scoring system
  *   -- add bonus for connections of more than 4
  *   -- add bonus for amount of remaining pieces post-win
- * - add sound effects ☑️
+ * - add more sound effects
  * - eventually add network functionality to play 1-1 remotely
  */
 $(function () {
