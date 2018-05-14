@@ -11,14 +11,14 @@ As the game board appears, above it is a message prompt (informing on who’s tu
 For now this is a one-on-one turn-based game. Each player takes a turn by clicking a column on the board with an empty space. The first player to make a connection of 4 (or greater) scores a point, then the players get to play another round.
 
 ## Responsive Design
-Maximum display resolution (760px width, 987px height)
-Medium display resolution (580px < width < 760px, 780px < height < 987px)
-Minimal display resolution (360px < width < 580px, 640px < height < 780px)
+* Maximum display resolution (760px width, 987px height)
+* Medium display resolution (580px < width < 760px, 780px < height < 987px)
+* Minimal display resolution (360px < width < 580px, 640px < height < 780px)
 
 ## Major Phases
-Phase 1: Layout of Container Grid (Preview Row + Game Board)
-Phase 2: Board Display + Logic + Functionality
-Phase 3: Game Play Logic for 1-on-1
+1. Phase 1: Layout of Container Grid (Preview Row + Game Board)
+2. Phase 2: Board Display + Logic + Functionality
+3. Phase 3: Game Play Logic for 1-on-1
 
 ## Constraints
 My understanding of CSS + JavaScript is still quite fresh. Many times, there are weird things happening that aren’t intuitive to debug. For example, getting the pieces to drop into the right spot along the column that was clicked on took almost 2 and a half days to figure out!!
