@@ -19,6 +19,7 @@ For now this is a one-on-one turn-based game. Each player takes a turn by clicki
 1. Phase 1: Layout of Container Grid (Preview Row + Game Board)
 2. Phase 2: Board Display + Logic + Functionality
 3. Phase 3: Game Play Logic for 1-on-1
+4. Phase 4: Animate Landing Page, Transition Into Game View
 
 ## Constraints
 My understanding of CSS + JavaScript is still quite fresh. Many times, there are weird things happening that aren’t intuitive to debug. For example, getting the pieces to drop into the right spot along the column that was clicked on took almost 2 and a half days to figure out!!
