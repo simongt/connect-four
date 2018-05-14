@@ -172,7 +172,7 @@ $(function () {
    * - 24 horizontal connections of four (4 solutions x 6 rows)
    * - 24 diagonal connections of four (12 solutions x 2 directions)
    */
-  const winningConnectionsOf4 = [
+  const winningConnectionsOf4 = [ // not airbnb convention, but easier to read?
     // vertical solutions
     [0, 7, 14, 21], [7, 14, 21, 28], [14, 21, 28, 35],
     [1, 8, 15, 22], [8, 15, 22, 29], [15, 22, 29, 36],
@@ -214,6 +214,7 @@ $(function () {
    * https: //stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript/966938#966938
    */
   function createArray(length) {
+    // this doesn't follow airbnb convention, how to update this? 🧐
     let newArray = new Array(length || 0), i = length;
     if (arguments.length > 1) {
       let args = Array.prototype.slice.call(arguments, 1);
