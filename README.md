@@ -26,4 +26,18 @@ For now this is a one-on-one turn-based game. Each player takes a turn by clicki
 ## Constraints
 My understanding of CSS + JavaScript is still quite fresh. Many times, there are weird things happening that aren’t intuitive to debug. For example, getting the pieces to drop into the right spot along the column that was clicked on took almost 2 and a half days to figure out!!
 
-
+## Next Steps
+ * - implement click & hover functionality on preview row
+ * - implement keyboard functionality to drop pieces
+ * - implement ai + a menu with option to play 1-1 or 1-ai
+ * - add button for hint (to suggest a move based on ai)
+ * - add button for instructions on how to play
+ * - add button to undo last move(s)
+ * - improve buttons below game board
+ * - improve win or tie declaration, animate a modal pop-up
+ * - toggle starting player and color per round
+ * - restructure scoring system
+ *   -- add bonus for connections of more than 4
+ *   -- add bonus for amount of remaining pieces post-win
+ * - add more sound effects
+ * - eventually add network functionality to play 1-1 remotely
