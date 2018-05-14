@@ -17,16 +17,18 @@
  * - implement keyboard functionality to drop pieces
  * - clean up transitions & animations on landing page ☑️
  * - clean up transitions & animations between rounds
- * - implement ai & a menu with option to play 1-1 or 1-ai
+ * - implement ai + a menu with option to play 1-1 or 1-ai
  * - add button for hint (to suggest a move based on ai)
  * - add button for instructions on how to play
+ * - add button to undo last move(s)
  * - improve buttons below game board
+ * - improve win or tie declaration, animate a modal pop-up
  * - toggle starting player and color per round
+ * - restructure scoring system
+ *   -- add bonus for connections of more than 4
+ *   -- add bonus for amount of remaining pieces post-win
+ * - add sound effects ☑️
  * - eventually add network functionality to play 1-1 remotely
- * - add bonuses for connections > 4, winning in less moves
- * - add sound effects
- * - go thru grading rubric requirements
- * - create presentation slides
  */
 $(function () {
   /*
@@ -65,13 +67,13 @@ $(function () {
   // grab the html body
   const $body = $('body');
 
-  // insert game title
+  // game title
   let $gameTitle = $('<h1>');
   $gameTitle.addClass('title enter');
-  // $gameTitle.addClass('neon');
-
   $gameTitle.html(`Connect 4`);
   $gameTitle.appendTo($body);
+
+  // start button
   let $startButton = $('<p>');
   $startButton.addClass('start');
   $startButton.html('Play');
@@ -90,13 +92,16 @@ $(function () {
   let $container = $('<div>');
   $container.addClass('gameContainer');
 
+  // scoreboard title
   let $scoreBoardTitle = $('<p>');
   $scoreBoardTitle.addClass('scoreBoardTitle');
   $scoreBoardTitle.html('Score Board');
 
+  // scoreboard
   let $scoreBoard = $('<div>');
   $scoreBoard.addClass('scoreBoard');
 
+  // scoreboard content
   let $player1ScoreLabel = $('<div>');
   let $tiesScoreLabel = $('<div>');
   let $player2ScoreLabel = $('<div>');
@@ -104,6 +109,7 @@ $(function () {
   let $tiesScore = $('<div>');
   let $player2Score = $('<div>');
 
+  // scoreboard styles
   $player1ScoreLabel.addClass('score');
   $tiesScoreLabel.addClass('score');
   $player2ScoreLabel.addClass('score');
@@ -111,17 +117,33 @@ $(function () {
   $tiesScore.addClass('score ties');
   $player2Score.addClass('score player2');
 
+  // scoreboard text
   $player1ScoreLabel.html(player.one.name);
   $player2ScoreLabel.html(player.two.name);
   $player1Score.html(player.one.wins);
   $tiesScore.html(`ties: ${ties}`);
   $player2Score.html(player.two.wins);
 
+  // reset round
   let $resetButton = $('<p>');
   $resetButton.addClass('resetRound');
   $resetButton.html('Restart Round');
-  
+
+  // modal pop-up
+  // let $modal = $('<div>');
+  // $modal.addClass('modal');
+  // let $modalContent = $('<p>');
+  // $modalContent.addClass('modalContent');
+  // let $closeModal = $('<p>');
+  // $closeModal.html(`X`);
+  // $closeModal.addClass('closeButton');
+
+  // sound clips
+  let dilih = $('.dilih')[0];
+
+  // an array that contains 6 elements that represent a single row to preview the move above the playable gameboard
   let previewRow = [];
+  
   // an array that contains 6 elements which are also arrays that each contain 7 elements
   let board = createArray(6, 7);  /*
                                    * 2-D array setup: 6 rows, 7 columns
@@ -143,12 +165,6 @@ $(function () {
                                    *  [ 1 ] [ 28 ... 34 ]
                                    *  [ 0 ] [ 35 ... 41 ]
                                    */
-
-  // let filledSpaces = createArray(6, 7);
-  // filledSpaces.forEach(row => {
-  //   row.fill(null);
-  // });
-  // console.table(filledSpaces);
 
   /*
    * in total, there will be 69 possible winning connections of four
@@ -181,10 +197,10 @@ $(function () {
     [10, 16, 22, 28], [11, 17, 23, 29], [12, 18, 24, 30], [13, 19, 25, 31],
     [17, 23, 29, 35], [18, 24, 30, 36], [19, 25, 31, 37], [20, 26, 32, 38]
   ];
+
   // Array.sort() works alphabetically by default, add a numerical sorting rule
   // https://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
   winningConnectionsOf4.sort((position1, position2) => position1 - position2);
-  console.log(winningConnectionsOf4);
 
   // a player's winning connection, can be greater than 4 in a row
   let winningConnection = [];
@@ -208,6 +224,7 @@ $(function () {
     return newArray;
   }
 
+  // fill container with the preview row + playable gameboard
   function populateGameBoard() {
     // fill the board with spaces, fill one preview row above the board
     for (let i = 0; i < 7; i++) {
@@ -223,6 +240,7 @@ $(function () {
       $downArrow.appendTo($previewSpace);
     }
     console.table(previewRow);
+
     // store board's elements into the multi-dimensional array: board[row][col]
     for (let i = 0; i < 42; i++) {
       // fill each column with playable spaces
@@ -237,6 +255,7 @@ $(function () {
     }
   }
 
+  // sequence of dom insertions after landing display
   function displayGameBoard() {
     $message.appendTo($body); // fade in
     $containerLid.appendTo($body);
@@ -252,27 +271,29 @@ $(function () {
     $resetButton.appendTo($body);
   }
 
-  // TRANSITION FROM LANDING DISPLAY TO GAME DISPLAY
-  // animate connect 4 entrance to center page (1.5s)
-  //   have some kind of animation looping until it is clicked
-  //   display start button below connect 4 at center page
-  //     when start button is clicked, the connect 4 title slides up
-  //     the game board is displayed and populated
-  // GAME DISPLAY
+  /**
+   * TRANSITION FROM LANDING DISPLAY TO GAME DISPLAY
+   */
+
+  // animate connect 4 entrance to center page
   landingDisplay();
   function landingDisplay() {
+    // display start button below connect 4 at center page
     setTimeout(() => {
       $startButton.appendTo($body);
     }, 1000);
     let clickStart = $startButton.click(function () {
       clickStart.off();
       $gameTitle.removeClass('title enter');
+      // have neon glow animation looping
       $gameTitle.addClass('neon glow');
+      // when start button is clicked, the connect 4 title slides up
       $gameTitle.addClass('title slide');
       $gameTitle.toggleClass('up');
       $startButton.remove();
       // append elements to DOM in sequence
       setTimeout(() => {
+        // the game board is displayed, populated and playable
         displayGameBoard();
         populateGameBoard();
         playRound();
@@ -280,9 +301,9 @@ $(function () {
     });
   }
 
-  let openRow;
-  let eventOnClick, eventOnHover;
-  let boardPosition;
+  let openRow; // array storing next open row (space) in a column
+  let eventOnClick, eventOnHover; // name of css class to apply
+  let boardPosition; // overall board position from 0-41
   function playRound() {
     // the option to restart round is available once the round is being played
     let clickRestart = $resetButton.click(function() {
@@ -336,13 +357,21 @@ $(function () {
             // console.table(whosTurn.combosOf4);
             roundIsWon = checkForWinningConnection(whosTurn.combosOf4);
             if (roundIsWon) {
+              clickRestart.off();
               $container.addClass('avoidClicks');
               whosTurn.wins++; // for scoreboard
               $message.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
               $message.addClass('blink');
               animateWinningConnection();
-              clickRestart.off();
-              clearGameBoard(5000);
+              // setTimeout(() => {
+              //   $modal.appendTo($body);
+              //   $modalContent.html(`${whosTurn.name} wins in ${whosTurn.moves} moves with a connection of ${winningConnection.length}!`);
+              //   $modalContent.appendTo($modal);
+              //   $closeModal.appendTo($modalContent);
+              //   $modal.addClass('showModal');
+              // }, 3000);
+              clearGameBoard(7000);
+              $message.removeClass('blink');
             }
           }
           console.table(player);
@@ -355,8 +384,8 @@ $(function () {
           if (!roundIsWon && turnCount < 42) {
             $message.html(`${whosTurn.name}, drop it like it's hot!`);
           } else if (!roundIsWon) {
-            $message.addClass('blink');
             $message.html(`Woah, we have a draw!`);
+            $message.addClass('blink');
             ties++;
             clickRestart.off();
             clearGameBoard(5000);
@@ -384,7 +413,6 @@ $(function () {
 
   function clearGameBoard(time) {
     // console.table(board);
-    // $container.addClass('flipBoard');
     board.forEach(row => {
       row.forEach($space => {
         setTimeout(function() {
@@ -405,7 +433,7 @@ $(function () {
       resetRoundData();
       initGameBoard();
       playRound();
-    }, time + 1000);
+    }, time + 2000);
   }
 
   function updateScore() {
@@ -503,6 +531,7 @@ $(function () {
       console.log(board[row][col]);
       $(board[row][col]).addClass('winner');
     });
+    dilih.play();
   }
 
   function initGameBoard() {
