@@ -5,11 +5,11 @@
  * - have the spaces populate with an entrance effect ☑️
  * - implement scoreboard display & update per round ☑️
  * - add a button to restart round ☑️
- * - implement responsive designs
- *   -- for same browser, except smaller window height
+ * - implement responsive designs ☑️
+ *   -- for same browser, except smaller window height ☑️
  *      --- default page has 760px width, 987px height
  *      --- make it responsive with min height 480px
- *   -- for mobile, other browsers with smaller screens
+ *   -- for mobile, other browsers with smaller screens ☑️
  *      --- make it responsive with min width 36opx
  *      --- make it responsive with min height 480px
  * - clean up js and css code, comment and remove fluff ☑️
@@ -20,6 +20,7 @@
  * - implement ai & a menu with option to play 1-1 or 1-ai
  * - add button for hint (to suggest a move based on ai)
  * - add button for instructions on how to play
+ * - improve buttons below game board
  * - toggle starting player and color per round
  * - eventually add network functionality to play 1-1 remotely
  * - add bonuses for connections > 4, winning in less moves
