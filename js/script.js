@@ -1,21 +1,7 @@
 /*
  * next steps: 
- * - landing page, animate "connect 4" title from center ☑️
- * - implement auto load of next game round ☑️
- * - have the spaces populate with an entrance effect ☑️
- * - implement scoreboard display & update per round ☑️
- * - add a button to restart round ☑️
- * - implement responsive designs ☑️
- *   -- for same browser, except smaller window height ☑️
- *      --- default page has 760px width, 987px height
- *      --- make it responsive with min height 480px
- *   -- for mobile, other browsers with smaller screens ☑️
- *      --- make it responsive with min width 36opx
- *      --- make it responsive with min height 480px
- * - clean up js and css code, comment and remove fluff ☑️
  * - implement click & hover functionality on preview row
  * - implement keyboard functionality to drop pieces
- * - clean up transitions & animations on landing page ☑️
  * - clean up transitions & animations between rounds
  * - implement ai + a menu with option to play 1-1 or 1-ai
  * - add button for hint (to suggest a move based on ai)
@@ -30,6 +16,8 @@
  * - add more sound effects
  * - eventually add network functionality to play 1-1 remotely
  */
+
+
 $(function () {
   /*
    * 2 players: player.one and player.two
@@ -41,17 +29,19 @@ $(function () {
     // (later, let player's choose their color and name)
     one: {
       name: 'Player 1',
+      color: 'magenta',
+      isAI: false,
       spaces: [],
       combosOf4: [],
-      color: 'magenta',
       moves: 0,
       wins: 0
     },
     two: {
       name: 'Player 2',
+      color: 'yellow',
+      isAI: false,
       spaces: [],
       combosOf4: [],
-      color: 'yellow',
       moves: 0,
       wins: 0
     }
@@ -272,6 +262,7 @@ $(function () {
     $resetButton.appendTo($body);
   }
 
+
   /**
    * TRANSITION FROM LANDING DISPLAY TO GAME DISPLAY
    */
@@ -297,7 +288,11 @@ $(function () {
         // the game board is displayed, populated and playable
         displayGameBoard();
         populateGameBoard();
-        playRound();
+        if(whosTurn.isAI) {
+          // if ai is playing, how to handle turn?
+        } else {
+          playRound(); // if ai is playing, maybe create an if-else here?
+        }
       }, 500);
     });
   }
