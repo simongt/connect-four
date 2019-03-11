@@ -1,16 +1,12 @@
-[Live](https://pages.git.generalassemb.ly/simon/project-1-connect-4/)
+# Connect 4
+Project Links: [Live](https://pages.git.generalassemb.ly/simon/project-1-connect-4/) | [Proposal](https://docs.google.com/document/d/10w_D423QGXMzwPaOHB7J-cMXR3JBZQbwN6R7mkRZ0c0/edit?usp=sharing) | [Slides](https://docs.google.com/presentation/d/1LLGQuup_bryUyTQuZBreQGIwf_3NLnqrKmt0FKySUzo/edit?usp=sharing)
 
-[Proposal](https://docs.google.com/document/d/10w_D423QGXMzwPaOHB7J-cMXR3JBZQbwN6R7mkRZ0c0/edit?usp=sharing)
-
-[Slides](https://docs.google.com/presentation/d/1LLGQuup_bryUyTQuZBreQGIwf_3NLnqrKmt0FKySUzo/edit?usp=sharing)
-
-
-# project-1-connect-4
-Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping colored discs from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the next available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs. [Paraphrased from Wikipedia]
-
-![Landing View vs Game View](/images/landing-view-and-game-view.jpg)
+Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping colored discs from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the next available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs. <br>
+[Paraphrased from Wikipedia]
 
 ## Transition: Landing View → Game View
+
+![Landing View vs Game View](./images/landing-view-and-game-view.jpg)
 The CONNECT 4 title enters the page by a sliding animation to center page, then a start button fades in directly below. The start button must be clicked in order to access the game view. Once clicked, the button disappears and the title slides up. A game board appears.
 
 ## Features
@@ -29,12 +25,13 @@ For now this is a one-on-one turn-based game. Each player takes a turn by clicki
 4. Phase 4: Animate Landing Page, Transition Into Game View
 
 ## Constraints
-My understanding of CSS + JavaScript is still quite fresh. Many times, there are weird things happening that aren’t intuitive to debug. For example, getting the pieces to drop into the right spot along the column that was clicked on took almost 2 and a half days to figure out!!
+At the time this project was created, my understanding of CSS + JavaScript was still quite fresh. I intend to refactor this code with Vanilla JS, and hopefully some type of AI.
 
 ## Next Steps
+ * refactor with Vanilla JS
+ * implement ai + a menu with option to play 1-1 or 1-ai
  * implement click & hover functionality on preview row
  * implement keyboard functionality to drop pieces
- * implement ai + a menu with option to play 1-1 or 1-ai
  * add button for hint (to suggest a move based on ai)
  * add button for instructions on how to play
  * add button to undo last move(s)
@@ -42,7 +39,7 @@ My understanding of CSS + JavaScript is still quite fresh. Many times, there are
  * improve win or tie declaration, animate a modal pop-up
  * toggle starting player and color per round
  * restructure scoring system
- * - add bonus for connections of more than 4
- * - add bonus for amount of remaining pieces post-win
+   * add bonus for connections of more than 4
+   * add bonus for amount of remaining pieces post-win
  * add more sound effects
  * eventually add network functionality to play 1-1 remotely
